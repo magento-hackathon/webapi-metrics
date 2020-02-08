@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="FireGento_WebapiMetrics::firegento"
+             title="FireGento"
+             translate="title"
+             module="FireGento_WebapiMetrics"
+             sortOrder="999"
+             resource="FireGento_WebapiMetrics::items"/>
+        <add id="FireGento_WebapiMetrics::webapi_metrics"
+             title="Webapi Metrics"
+             translate="title"
+             module="FireGento_WebapiMetrics"
+             sortOrder="10"
+             resource="FireGento_WebapiMetrics::webapi_metrics"
+             parent="FireGento_WebapiMetrics::firegento"
+             action="webapi/metrics/metrics" />
+    </menu>
+</config>

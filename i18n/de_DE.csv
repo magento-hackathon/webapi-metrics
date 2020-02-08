@@ -1,0 +1,8 @@
+"Webapi Metrics","Webapi Metriken"
+"Could not save the loggingEntry: %1","Logeintrag konnte nicht gespeichert werden: %1"
+"LoggingEntry with id ""%1"" does not exist.","Logeintrag mit id ""%1"" existiert nicht."
+"Could not delete the LoggingEntry: %1","Konnte Logeintrag nicht löschen: %1"
+"Could not save the loggingRoute: %1","Konnte die Logroute nicht speichern: %1"
+"LoggingRoute with id ""%1"" does not exist.","Logroute mit id ""%1"" existiert nicht."
+"Could not delete the LoggingRoute: %1","Konnte die Logroute nicht löschen: %1"
+FireGento,FireGento
