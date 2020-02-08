@@ -109,8 +109,8 @@ class SendResponseBefore implements ObserverInterface
         /** @var LoggingEntryInterface $loggingEntry */
         $loggingEntry = $this->loggingEntryInterfaceFactory->create();
         $loggingEntry->setRouteId($routeId);
-        $loggingEntry->setStatusCode($response->getStatusCode());
-        $loggingEntry->setSize(0);
+        $loggingEntry->setStatusCode($response->getHttpResponseCode());
+        $loggingEntry->setSize(strlen($response->getBody()));
 
         return $this->loggingEntryRepository->save($loggingEntry);
     }
