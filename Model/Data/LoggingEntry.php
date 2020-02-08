@@ -5,7 +5,7 @@ namespace FireGento\WebapiMetrics\Model\Data;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
 
-class LoggingEntry extends \Magento\Framework\Api\AbstractSimpleObject implements LoggingEntryInterface
+class LoggingEntry extends \Magento\Framework\Api\AbstractExtensibleObject implements LoggingEntryInterface
 {
 
     /**

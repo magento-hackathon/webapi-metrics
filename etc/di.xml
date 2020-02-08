@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="FireGento\WebapiMetrics\Api\LoggingRouteRepositoryInterface" type="FireGento\WebapiMetrics\Model\LoggingRouteRepository"/>
+	<preference for="FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface" type="FireGento\WebapiMetrics\Model\Data\LoggingRoute"/>
+	<preference for="FireGento\WebapiMetrics\Api\Data\LoggingRouteSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<preference for="FireGento\WebapiMetrics\Api\LoggingEntryRepositoryInterface" type="FireGento\WebapiMetrics\Model\LoggingEntryRepository"/>
+	<preference for="FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface" type="FireGento\WebapiMetrics\Model\Data\LoggingEntry"/>
+	<preference for="FireGento\WebapiMetrics\Api\Data\LoggingEntrySearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+</config>
