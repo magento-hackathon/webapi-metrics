@@ -12,7 +12,7 @@ class LoggingEntry extends \Magento\Framework\Api\AbstractExtensibleObject imple
      * Get loggingentry_id
      * @return int
      */
-    public function getLoggingentryId():int
+    public function getLoggingentryId()
     {
         return $this->_get(LoggingEntryInterface::KEY_LOGGINGENTRY_ID);
     }
@@ -31,7 +31,7 @@ class LoggingEntry extends \Magento\Framework\Api\AbstractExtensibleObject imple
      * Get executed_at
      * @return string|null
      */
-    public function getExecutedAt(): string
+    public function getExecutedAt()
     {
         return $this->_get(LoggingEntryInterface::KEY_EXECUTED_AT);
     }
