@@ -30,21 +30,28 @@ class SendResponseBefore implements ObserverInterface
      * @var LoggingRouteInterfaceFactory
      */
     private $loggingRouteInterfaceFactory;
+    /**
+     * @var \Magento\Webapi\Controller\Rest\InputParamsResolver
+     */
+    private $inputParamsResolver;
 
     /**
      * SendResponseBefore constructor.
      * @param LoggingRouteInterfaceFactory $loggingRouteInterfaceFactory
      * @param LoggingRouteRepositoryInterface $loggingRouteRepository
      * @param LoggingEntryRepositoryInterface $loggingEntryRepository
+     * @param \Magento\Webapi\Controller\Rest\InputParamsResolver $inputParamsResolver
      */
     public function __construct(
         LoggingRouteInterfaceFactory $loggingRouteInterfaceFactory,
         LoggingRouteRepositoryInterface $loggingRouteRepository,
-        LoggingEntryRepositoryInterface $loggingEntryRepository
+        LoggingEntryRepositoryInterface $loggingEntryRepository,
+        \Magento\Webapi\Controller\Rest\InputParamsResolver $inputParamsResolver
     ) {
         $this->loggingRouteRepository = $loggingRouteRepository;
         $this->loggingEntryRepository = $loggingEntryRepository;
         $this->loggingRouteInterfaceFactory = $loggingRouteInterfaceFactory;
+        $this->inputParamsResolver = $inputParamsResolver;
     }
 
     /**
@@ -58,15 +65,18 @@ class SendResponseBefore implements ObserverInterface
         /** @var Response $response */
         $response = $observer->getData('response');
 
-        $this->getRouteId($request);
+        // with params e.g. V1/directory/countries/:countryId
+        $routePath = $this->inputParamsResolver->getRoute()->getRoutePath();
+
+        $this->getRouteId($request->getMethod(), $routePath);
     }
 
-    protected function getRouteId(Http $request)
+    protected function getRouteId(string $method, string $routePath)
     {
         /** @var LoggingRouteInterface $loggingRoute */
         $loggingRoute = $this->loggingRouteInterfaceFactory->create();
-        $loggingRoute->setRouteName($request->getPathInfo());
-        $loggingRoute->setMethodType($request->getMethod());
+        $loggingRoute->setRouteName($routePath);
+        $loggingRoute->setMethodType($method);
 
         $this->loggingRouteRepository->save($loggingRoute);
     }
