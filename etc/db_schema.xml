@@ -12,14 +12,14 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>
+        <constraint xsi:type="unique" referenceId="WAM_ROUTES_UNIQUE_INDEX_ROUTE_TYPE">
+            <column name="route_name"/>
+            <column name="method_type"/>
+        </constraint>
         <index referenceId="FG_WEBAPIMETRICS_LOGGING_ROUTES_INDEX_ROUTE_NAME" indexType="btree">
             <column name="route_name"/>
         </index>
         <index referenceId="FG_WEBAPIMETRICS_LOGGING_ROUTES_INDEX_METHOD_TYPE" indexType="btree">
-            <column name="method_type"/>
-        </index>
-        <index referenceId="FG_WEBAPIMETRICS_LOGGING_ROUTES_INDEX_ROUTE_NAME_METHOD_TYPE" indexType="btree">
-            <column name="route_name"/>
             <column name="method_type"/>
         </index>
     </table>
