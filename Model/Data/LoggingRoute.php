@@ -10,21 +10,21 @@ class LoggingRoute extends \Magento\Framework\Api\AbstractExtensibleObject imple
 
     /**
      * Get loggingroute_id
-     * @return string|null
+     * @return int|null
      */
-    public function getLoggingrouteId()
+    public function getEntityId()
     {
-        return $this->_get(LoggingRouteInterface::KEY_LOGGINGROUTE_ID);
+        return $this->_get(LoggingRouteInterface::KEY_ENTITY_ID);
     }
 
     /**
      * Set loggingroute_id
-     * @param string $loggingrouteId
+     * @param int $entityId
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface
      */
-    public function setLoggingrouteId($loggingrouteId)
+    public function setEntityId($entityId)
     {
-        return $this->setData(LoggingRouteInterface::KEY_LOGGINGROUTE_ID, $loggingrouteId);
+        return $this->setData(LoggingRouteInterface::KEY_ENTITY_ID, $entityId);
     }
 
     /**

@@ -3,20 +3,22 @@
 
 namespace FireGento\WebapiMetrics\Model;
 
-use FireGento\WebapiMetrics\Api\LoggingRouteRepositoryInterface;
-use FireGento\WebapiMetrics\Api\Data\LoggingRouteSearchResultsInterfaceFactory;
+use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
+use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface;
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterfaceFactory;
-use Magento\Framework\Api\DataObjectHelper;
-use Magento\Framework\Exception\CouldNotDeleteException;
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\Framework\Reflection\DataObjectProcessor;
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use FireGento\WebapiMetrics\Api\Data\LoggingRouteSearchResultsInterfaceFactory;
+use FireGento\WebapiMetrics\Api\LoggingRouteRepositoryInterface;
 use FireGento\WebapiMetrics\Model\ResourceModel\LoggingRoute as ResourceLoggingRoute;
 use FireGento\WebapiMetrics\Model\ResourceModel\LoggingRoute\CollectionFactory as LoggingRouteCollectionFactory;
-use Magento\Store\Model\StoreManagerInterface;
-use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
+use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
+use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Exception\CouldNotDeleteException;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Reflection\DataObjectProcessor;
+use Magento\Store\Model\StoreManagerInterface;
 
 class LoggingRouteRepository implements LoggingRouteRepositoryInterface
 {
@@ -85,16 +87,25 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function save(
-        \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface $loggingRoute
-    ) {
+    public function save(LoggingRouteInterface $loggingRoute) {
         $loggingRouteData = $this->extensibleDataObjectConverter->toNestedArray(
             $loggingRoute,
             [],
-            \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface::class
+            LoggingRouteInterface::class
         );
-        
+
+        /** @var LoggingRoute $loggingRouteModel */
         $loggingRouteModel = $this->loggingRouteFactory->create()->setData($loggingRouteData);
+        $this->resource->load(
+            $loggingRouteModel,
+            $loggingRouteModel->getData(LoggingRouteInterface::KEY_ROUTE_NAME),
+            LoggingRouteInterface::KEY_ROUTE_NAME
+        );
+
+        //if no entity_id after load then we need set data changes and save it
+        if(!$loggingRouteModel->getEntityId()) {
+            $loggingRouteModel->setDataChanges(true);
+        }
         
         try {
             $this->resource->save($loggingRouteModel);
@@ -130,7 +141,7 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
         
         $this->extensionAttributesJoinProcessor->process(
             $collection,
-            \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface::class
+            LoggingRouteInterface::class
         );
         
         $this->collectionProcessor->process($criteria, $collection);
@@ -152,11 +163,11 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
      * {@inheritdoc}
      */
     public function delete(
-        \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface $loggingRoute
+        LoggingRouteInterface $loggingRoute
     ) {
         try {
             $loggingRouteModel = $this->loggingRouteFactory->create();
-            $this->resource->load($loggingRouteModel, $loggingRoute->getLoggingrouteId());
+            $this->resource->load($loggingRouteModel, $loggingRoute->getEntityId());
             $this->resource->delete($loggingRouteModel);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__(

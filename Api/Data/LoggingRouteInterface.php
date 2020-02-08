@@ -9,14 +9,20 @@ namespace FireGento\WebapiMetrics\Api\Data;
  */
 interface LoggingRouteInterface
 {
-    const KEY_LOGGINGROUTE_ID = 'entity_id';
+    const KEY_ENTITY_ID = 'entity_id';
     const KEY_ROUTE_NAME = 'route_name';
     const KEY_METHOD_TYPE = 'method_type';
 
     /**
      * @return int
      */
-    public function getLoggingrouteId();
+    public function getEntityId();
+
+    /**
+     * @param int $entityId
+     * @return self
+     */
+    public function setEntityId(int $entityId);
 
     /**
      * @return string

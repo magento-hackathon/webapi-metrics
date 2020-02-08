@@ -3,6 +3,7 @@
 
 namespace FireGento\WebapiMetrics\Model;
 
+use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
 use FireGento\WebapiMetrics\Api\LoggingEntryRepositoryInterface;
 use FireGento\WebapiMetrics\Api\Data\LoggingEntrySearchResultsInterfaceFactory;
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterfaceFactory;
@@ -85,17 +86,15 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function save(
-        \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface $loggingEntry
-    ) {
+    public function save(LoggingEntryInterface $loggingEntry) {
         $loggingEntryData = $this->extensibleDataObjectConverter->toNestedArray(
             $loggingEntry,
             [],
-            \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface::class
+            LoggingEntryInterface::class
         );
         
         $loggingEntryModel = $this->loggingEntryFactory->create()->setData($loggingEntryData);
-        
+
         try {
             $this->resource->save($loggingEntryModel);
         } catch (\Exception $exception) {
@@ -130,7 +129,7 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
         
         $this->extensionAttributesJoinProcessor->process(
             $collection,
-            \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface::class
+            LoggingEntryInterface::class
         );
         
         $this->collectionProcessor->process($criteria, $collection);
@@ -152,11 +151,11 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
      * {@inheritdoc}
      */
     public function delete(
-        \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface $loggingEntry
+        LoggingEntryInterface $loggingEntry
     ) {
         try {
             $loggingEntryModel = $this->loggingEntryFactory->create();
-            $this->resource->load($loggingEntryModel, $loggingEntry->getLoggingentryId());
+            $this->resource->load($loggingEntryModel, $loggingEntry->getEntityId());
             $this->resource->delete($loggingEntryModel);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__(

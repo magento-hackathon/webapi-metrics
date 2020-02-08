@@ -4,27 +4,44 @@
 namespace FireGento\WebapiMetrics\Model\Data;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
+use Magento\Framework\Api\AbstractExtensibleObject;
 
-class LoggingEntry extends \Magento\Framework\Api\AbstractExtensibleObject implements LoggingEntryInterface
+class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInterface
 {
-
     /**
-     * Get loggingentry_id
+     * Get entity_id
      * @return int
      */
-    public function getLoggingentryId()
+    public function getEntityId()
     {
-        return $this->_get(LoggingEntryInterface::KEY_LOGGINGENTRY_ID);
+        return $this->_get(LoggingEntryInterface::KEY_ENTITY_ID);
     }
 
     /**
      * Set loggingentry_id
-     * @param string $loggingentryId
+     * @param string $entityId
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface
      */
-    public function setLoggingentryId($loggingentryId)
+    public function setEntityId($entityId)
     {
-        return $this->setData(LoggingEntryInterface::KEY_LOGGINGENTRY_ID, $loggingentryId);
+        return $this->setData(LoggingEntryInterface::KEY_ENTITY_ID, $entityId);
+    }
+
+    /**
+     * @return int
+     */
+    public function getRouteId(): int
+    {
+        return $this->_get(LoggingEntryInterface::KEY_ROUTE_ID);
+    }
+
+    /**
+     * @param $routeId
+     * @return self
+     */
+    public function setRouteId($routeId)
+    {
+        return $this->setData(LoggingEntryInterface::KEY_ROUTE_ID, $routeId);
     }
 
     /**
@@ -44,23 +61,6 @@ class LoggingEntry extends \Magento\Framework\Api\AbstractExtensibleObject imple
     public function setExecutedAt($executedAt)
     {
         return $this->setData(LoggingEntryInterface::KEY_EXECUTED_AT, $executedAt);
-    }
-
-    /**
-     * @return int
-     */
-    public function getRouteId(): int
-    {
-        return $this->_get(LoggingEntryInterface::KEY_ROUTE_ID);
-    }
-
-    /**
-     * @param $routeId
-     * @return self
-     */
-    public function setRouteId($routeId)
-    {
-        return $this->setData(LoggingEntryInterface::KEY_ROUTE_ID, $routeId);
     }
 
     /**
