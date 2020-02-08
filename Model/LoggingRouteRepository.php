@@ -101,6 +101,11 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
             $loggingRouteModel->getData(LoggingRouteInterface::KEY_ROUTE_NAME),
             LoggingRouteInterface::KEY_ROUTE_NAME
         );
+
+        //if no entity_id after load then we need set data changes and save it
+        if(!$loggingRouteModel->getEntityId()) {
+            $loggingRouteModel->setDataChanges(true);
+        }
         
         try {
             $this->resource->save($loggingRouteModel);
