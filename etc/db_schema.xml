@@ -19,7 +19,9 @@
                 nullable="false" identity="true" comment="Entity Id"/>
         <column xsi:type="smallint" name="logging_id" padding="10" unsigned="true" nullable="false"
                 identity="false" default="0" comment="Attribute Set ID"/>
-        <column name="status_code" xsi:type="varchar" length="3"
+        <column name="status_code" xsi:type="int" length="3"
+                nullable="false" comment="Route name"/>
+        <column name="size" xsi:type="int" length="8"
                 nullable="false" comment="Route name"/>
         <column xsi:type="timestamp" name="executed_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Executed Method At"/>
