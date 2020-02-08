@@ -19,7 +19,7 @@ interface LoggingEntryInterface
     /**
      * @return int
      */
-    public function getLoggingentryId(): int;
+    public function getLoggingentryId();
 
     /**
      * @return int
@@ -57,7 +57,7 @@ interface LoggingEntryInterface
     /**
      * @return string
      */
-    public function getExecutedAt(): string;
+    public function getExecutedAt();
 
     /**
      * @param string $executedAt
