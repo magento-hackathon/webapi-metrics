@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="fg_webapimetrics_logging_entry" resource="default" engine="innodb"
+    <table name="fg_webapimetrics_logging_routes" resource="default" engine="innodb"
            comment="Main table for logging all Rest API metrics">
         <column name="entity_id" xsi:type="int" padding="10" unsigned="true"
                 nullable="false" identity="true" comment="Entity Id"/>
         <column name="route_name" xsi:type="varchar" length="255"
                 nullable="false" comment="Route name"/>
-        <column name="method_type_id" xsi:type="smallint" length="2"
+        <column name="method_type_id" xsi:type="varchar" length="8"
                 nullable="false" comment="Method Type ID"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>
     </table>
-    <table name="fg_webapimetrics_response_data" resource="default" engine="innodb"
+    <table name="fg_webapimetrics_logging_entry" resource="default" engine="innodb"
            comment="Table for collecting metrics data">
         <column name="entity_id" xsi:type="int" padding="10" unsigned="true"
                 nullable="false" identity="true" comment="Entity Id"/>
@@ -23,16 +23,6 @@
                 nullable="false" comment="Route name"/>
         <column xsi:type="timestamp" name="executed_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Executed Method At"/>
-        <constraint xsi:type="primary" referenceId="PRIMARY">
-            <column name="entity_id"/>
-        </constraint>
-    </table>
-    <table name="fg_webapimetrics_method_types" resource="default" engine="innodb"
-           comment="Table for collecting method types">
-        <column name="entity_id" xsi:type="int" padding="10" unsigned="true"
-                nullable="false" identity="true" comment="Entity Id"/>
-        <column name="method_type" xsi:type="varchar" length="16"
-                nullable="false" comment="Method type GET, POST, etc."/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>
