@@ -5,6 +5,9 @@ namespace FireGento\WebapiMetrics\Model\Data;
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface;
 use Magento\Framework\Api\AbstractExtensibleObject;
 
+/**
+ * Class LoggingRoute
+ */
 class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInterface
 {
     /**

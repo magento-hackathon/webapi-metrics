@@ -1,22 +1,23 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace FireGento\WebapiMetrics\Block;
 
 use FireGento\WebapiMetrics\Api\LoggingEntryRepositoryInterface;
 use FireGento\WebapiMetrics\Api\LoggingRouteRepositoryInterface;
+use Magento\Backend\Block\Dashboard\AbstractDashboard;
 use Magento\Backend\Block\Template\Context;
+use Magento\Backend\Helper\Dashboard\Data;
 use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\Search\FilterGroupBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Reports\Model\ResourceModel\Order\CollectionFactory;
-use Magento\Backend\Block\Dashboard\AbstractDashboard;
 
 /**
  * Class Routes
  */
-class Routes extends \Magento\Backend\Block\Dashboard\AbstractDashboard
+class Routes extends AbstractDashboard
 {
     /**
      * Api URL
@@ -30,31 +31,36 @@ class Routes extends \Magento\Backend\Block\Dashboard\AbstractDashboard
     /**
      * Adminhtml dashboard data
      *
-     * @var \Magento\Backend\Helper\Dashboard\Data
+     * @var Data
      */
     protected $_dashboardData = null;
+
     /** @var LoggingEntryRepositoryInterface */
     private $loggingEntryRepository;
+
     /** @var LoggingRouteRepositoryInterface */
     private $loggingRouteRepository;
+
     /** @var SearchCriteriaBuilder */
     private $searchCriteriaBuilder;
+
     /** @var FilterBuilder */
     private $filterBuilder;
+
     /** @var FilterGroupBuilder */
     private $filterGroupBuilder;
 
     /**
      * Routes constructor.
      *
-     * @param Context                                                      $context
-     * @param CollectionFactory                                            $collectionFactory
-     * @param \FireGento\WebapiMetrics\Api\LoggingEntryRepositoryInterface $loggingEntryRepository
-     * @param \FireGento\WebapiMetrics\Api\LoggingRouteRepositoryInterface $loggingRouteRepository
-     * @param \Magento\Framework\Api\SearchCriteriaBuilder                 $searchCriteriaBuilder
-     * @param \Magento\Framework\Api\Search\FilterGroupBuilder             $filterGroupBuilder
-     * @param \Magento\Framework\Api\FilterBuilder                         $filterBuilder
-     * @param array                                                        $data
+     * @param Context $context
+     * @param CollectionFactory $collectionFactory
+     * @param LoggingEntryRepositoryInterface $loggingEntryRepository
+     * @param LoggingRouteRepositoryInterface $loggingRouteRepository
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param FilterGroupBuilder $filterGroupBuilder
+     * @param FilterBuilder $filterBuilder
+     * @param array $data
      */
     public function __construct(
         Context $context,
@@ -75,6 +81,8 @@ class Routes extends \Magento\Backend\Block\Dashboard\AbstractDashboard
     }
 
     /**
+     * Get count
+     *
      * @return bool|int
      * @throws LocalizedException
      */
@@ -82,7 +90,7 @@ class Routes extends \Magento\Backend\Block\Dashboard\AbstractDashboard
     {
         $routes = $this->loggingRouteRepository->getList($this->searchCriteriaBuilder->create())->getItems();
 
-        return (bool) count($routes) > 0;
+        return (bool)count($routes) > 0;
     }
 
     /**

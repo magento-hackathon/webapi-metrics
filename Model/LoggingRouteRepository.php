@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace FireGento\WebapiMetrics\Model;
 
@@ -80,17 +80,19 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
     private $collectionProcessor;
 
     /**
-     * @param ResourceLoggingRoute                      $resource
-     * @param LoggingRouteFactory                       $loggingRouteFactory
-     * @param LoggingRouteInterfaceFactory              $dataLoggingRouteFactory
-     * @param LoggingRouteCollectionFactory             $loggingRouteCollectionFactory
+     * LoggingRouteRepository constructor.
+     *
+     * @param ResourceLoggingRoute $resource
+     * @param LoggingRouteFactory $loggingRouteFactory
+     * @param LoggingRouteInterfaceFactory $dataLoggingRouteFactory
+     * @param LoggingRouteCollectionFactory $loggingRouteCollectionFactory
      * @param LoggingRouteSearchResultsInterfaceFactory $searchResultsFactory
-     * @param DataObjectHelper                          $dataObjectHelper
-     * @param DataObjectProcessor                       $dataObjectProcessor
-     * @param StoreManagerInterface                     $storeManager
-     * @param CollectionProcessorInterface              $collectionProcessor
-     * @param JoinProcessorInterface                    $extensionAttributesJoinProcessor
-     * @param ExtensibleDataObjectConverter             $extensibleDataObjectConverter
+     * @param DataObjectHelper $dataObjectHelper
+     * @param DataObjectProcessor $dataObjectProcessor
+     * @param StoreManagerInterface $storeManager
+     * @param CollectionProcessorInterface $collectionProcessor
+     * @param JoinProcessorInterface $extensionAttributesJoinProcessor
+     * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
      */
     public function __construct(
         ResourceLoggingRoute $resource,
@@ -119,7 +121,7 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function save(LoggingRouteInterface $loggingRoute)
     {
@@ -142,17 +144,14 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
         try {
             $this->resource->save($loggingRouteModel);
         } catch (\Exception $exception) {
-            throw new CouldNotSaveException(__(
-                'Could not save the loggingRoute: %1',
-                $exception->getMessage()
-            ));
+            throw new CouldNotSaveException(__('Could not save the loggingRoute: %1', $exception->getMessage()));
         }
 
         return $loggingRouteModel->getDataModel();
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function get($loggingRouteId)
     {
@@ -166,7 +165,7 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getList(
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
@@ -182,7 +181,7 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function delete(
         LoggingRouteInterface $loggingRoute
@@ -192,17 +191,14 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
             $this->resource->load($loggingRouteModel, $loggingRoute->getEntityId());
             $this->resource->delete($loggingRouteModel);
         } catch (\Exception $exception) {
-            throw new CouldNotDeleteException(__(
-                'Could not delete the LoggingRoute: %1',
-                $exception->getMessage()
-            ));
+            throw new CouldNotDeleteException(__('Could not delete the LoggingRoute: %1', $exception->getMessage()));
         }
 
         return true;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function deleteById($loggingRouteId)
     {
