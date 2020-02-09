@@ -79,17 +79,17 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     private $collectionProcessor;
 
     /**
-     * @param ResourceLoggingEntry                      $resource
-     * @param LoggingEntryFactory                       $loggingEntryFactory
-     * @param LoggingEntryInterfaceFactory              $dataLoggingEntryFactory
-     * @param LoggingEntryCollectionFactory             $loggingEntryCollectionFactory
+     * @param ResourceLoggingEntry $resource
+     * @param LoggingEntryFactory $loggingEntryFactory
+     * @param LoggingEntryInterfaceFactory $dataLoggingEntryFactory
+     * @param LoggingEntryCollectionFactory $loggingEntryCollectionFactory
      * @param LoggingEntrySearchResultsInterfaceFactory $searchResultsFactory
-     * @param DataObjectHelper                          $dataObjectHelper
-     * @param DataObjectProcessor                       $dataObjectProcessor
-     * @param StoreManagerInterface                     $storeManager
-     * @param CollectionProcessorInterface              $collectionProcessor
-     * @param JoinProcessorInterface                    $extensionAttributesJoinProcessor
-     * @param ExtensibleDataObjectConverter             $extensibleDataObjectConverter
+     * @param DataObjectHelper $dataObjectHelper
+     * @param DataObjectProcessor $dataObjectProcessor
+     * @param StoreManagerInterface $storeManager
+     * @param CollectionProcessorInterface $collectionProcessor
+     * @param JoinProcessorInterface $extensionAttributesJoinProcessor
+     * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
      */
     public function __construct(
         ResourceLoggingEntry $resource,
@@ -163,23 +163,12 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     ) {
         $collection = $this->loggingEntryCollectionFactory->create();
 
-//        $this->extensionAttributesJoinProcessor->process(
-//            $collection,
-//            LoggingEntryInterface::class
-//        );
-
         $this->collectionProcessor->process($criteria, $collection);
 
         $searchResults = $this->searchResultsFactory->create();
-        $searchResults->setSearchCriteria($criteria);
-
-        $items = [];
-        foreach ($collection as $model) {
-            $items[] = $model->getDataModel();
-        }
-
-        $searchResults->setItems($items);
+        $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
+        $searchResults->setSearchCriteria($criteria);
         return $searchResults;
     }
 

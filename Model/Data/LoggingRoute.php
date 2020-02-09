@@ -1,15 +1,14 @@
 <?php
 
-
 namespace FireGento\WebapiMetrics\Model\Data;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface;
+use Magento\Framework\Api\AbstractExtensibleObject;
 
-class LoggingRoute extends \Magento\Framework\Api\AbstractExtensibleObject implements LoggingRouteInterface
+class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInterface
 {
-
     /**
-     * Get loggingroute_id
+     * Get Entity ID
      * @return int|null
      */
     public function getEntityId()
@@ -18,7 +17,7 @@ class LoggingRoute extends \Magento\Framework\Api\AbstractExtensibleObject imple
     }
 
     /**
-     * Set loggingroute_id
+     * Set Entity ID
      * @param int $entityId
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface
      */
@@ -64,10 +63,23 @@ class LoggingRoute extends \Magento\Framework\Api\AbstractExtensibleObject imple
     }
 
     /**
-     * @return array|mixed|null
+     * @inheritDoc
      */
-    public function getEntries()
+    public function getExtensionAttributes()
     {
-        return $this->_get(LoggingRouteInterface::KEY_ENTRIES);
+        $extensionAttributes = $this->_getExtensionAttributes();
+        if (null === $extensionAttributes) {
+            $extensionAttributes = $this->extensionFactory->create(LoggingRouteInterface::class);
+            $this->setExtensionAttributes($extensionAttributes);
+        }
+        return $extensionAttributes;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setExtensionAttributes(\Magento\Framework\Api\ExtensionAttributesInterface $extensionAttributes)
+    {
+        $this->_setExtensionAttributes($extensionAttributes);
     }
 }

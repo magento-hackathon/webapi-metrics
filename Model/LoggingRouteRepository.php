@@ -79,19 +79,17 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
     private $collectionProcessor;
 
     /**
-     * Constructor
-     *
-     * @param ResourceLoggingRoute                      $resource
-     * @param LoggingRouteFactory                       $loggingRouteFactory
-     * @param LoggingRouteInterfaceFactory              $dataLoggingRouteFactory
-     * @param LoggingRouteCollectionFactory             $loggingRouteCollectionFactory
+     * @param ResourceLoggingRoute $resource
+     * @param LoggingRouteFactory $loggingRouteFactory
+     * @param LoggingRouteInterfaceFactory $dataLoggingRouteFactory
+     * @param LoggingRouteCollectionFactory $loggingRouteCollectionFactory
      * @param LoggingRouteSearchResultsInterfaceFactory $searchResultsFactory
-     * @param DataObjectHelper                          $dataObjectHelper
-     * @param DataObjectProcessor                       $dataObjectProcessor
-     * @param StoreManagerInterface                     $storeManager
-     * @param CollectionProcessorInterface              $collectionProcessor
-     * @param JoinProcessorInterface                    $extensionAttributesJoinProcessor
-     * @param ExtensibleDataObjectConverter             $extensibleDataObjectConverter
+     * @param DataObjectHelper $dataObjectHelper
+     * @param DataObjectProcessor $dataObjectProcessor
+     * @param StoreManagerInterface $storeManager
+     * @param CollectionProcessorInterface $collectionProcessor
+     * @param JoinProcessorInterface $extensionAttributesJoinProcessor
+     * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
      */
     public function __construct(
         ResourceLoggingRoute $resource,
@@ -138,7 +136,7 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
             LoggingRouteInterface::KEY_ROUTE_NAME
         );
 
-        //if no entity_id after load then we need set data changes and save it
+        // If no entity_id after load then we need set data changes and save it
         if (!$loggingRouteModel->getEntityId()) {
             $loggingRouteModel->setDataChanges(true);
         }
@@ -176,23 +174,12 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
     ) {
         $collection = $this->loggingRouteCollectionFactory->create();
 
-//        $this->extensionAttributesJoinProcessor->process(
-//            $collection,
-//            LoggingRouteInterface::class
-//        );
-
         $this->collectionProcessor->process($criteria, $collection);
 
         $searchResults = $this->searchResultsFactory->create();
-        $searchResults->setSearchCriteria($criteria);
-
-        $items = [];
-        foreach ($collection as $model) {
-            $items[] = $model->getDataModel();
-        }
-
-        $searchResults->setItems($items);
+        $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
+        $searchResults->setSearchCriteria($criteria);
         return $searchResults;
     }
 

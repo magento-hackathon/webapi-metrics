@@ -78,6 +78,17 @@ interface LoggingEntryInterface extends ExtensibleDataInterface
     public function setExecutedAt(string $executedAt);
 
     /**
+     * @return \Magento\Framework\Api\ExtensionAttributesInterface|null
+     */
+    public function getExtensionAttributes();
+
+    /**
+     * @param \Magento\Framework\Api\ExtensionAttributesInterface $extensionAttributes
+     * @return void
+     */
+    public function setExtensionAttributes(\Magento\Framework\Api\ExtensionAttributesInterface $extensionAttributes);
+
+    /**
      * @return mixed
      */
     public function getRouteName();
