@@ -79,17 +79,19 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
     private $collectionProcessor;
 
     /**
-     * @param ResourceLoggingRoute $resource
-     * @param LoggingRouteFactory $loggingRouteFactory
-     * @param LoggingRouteInterfaceFactory $dataLoggingRouteFactory
-     * @param LoggingRouteCollectionFactory $loggingRouteCollectionFactory
+     * Constructor
+     *
+     * @param ResourceLoggingRoute                      $resource
+     * @param LoggingRouteFactory                       $loggingRouteFactory
+     * @param LoggingRouteInterfaceFactory              $dataLoggingRouteFactory
+     * @param LoggingRouteCollectionFactory             $loggingRouteCollectionFactory
      * @param LoggingRouteSearchResultsInterfaceFactory $searchResultsFactory
-     * @param DataObjectHelper $dataObjectHelper
-     * @param DataObjectProcessor $dataObjectProcessor
-     * @param StoreManagerInterface $storeManager
-     * @param CollectionProcessorInterface $collectionProcessor
-     * @param JoinProcessorInterface $extensionAttributesJoinProcessor
-     * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
+     * @param DataObjectHelper                          $dataObjectHelper
+     * @param DataObjectProcessor                       $dataObjectProcessor
+     * @param StoreManagerInterface                     $storeManager
+     * @param CollectionProcessorInterface              $collectionProcessor
+     * @param JoinProcessorInterface                    $extensionAttributesJoinProcessor
+     * @param ExtensibleDataObjectConverter             $extensibleDataObjectConverter
      */
     public function __construct(
         ResourceLoggingRoute $resource,
