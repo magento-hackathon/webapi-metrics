@@ -119,19 +119,17 @@ class Routes extends \Magento\Backend\Block\Dashboard\AbstractDashboard
         $params = [
             'cht' => 'bhg',
             'chtt' => 'WebApi Metrics',
-            'chs' => '999x500',
+            'chs' => '700x150',
             'chd' => 't:' . implode('|', $chd),
             'chdl' => implode('|', $chdl),
-//            'chxl' => '0:|' . implode('|', $methodTypes),
-//            'chxs' => '1N**K',
-//            'chxt' => 'x,y',
             'chma' => '0,0,10,10',
             'chan' => '8000,easeOutBack',
-            'chco' => 'fdb45c,27c9c2,1869b7',
+            'chco' => 'fdb45c,27c9c2,1869b7,4F6F26,F6011D,E3521A',
             'chds' => '0,120',
             'chm' => 'N,000000,0,,10|N,000000,1,,10|N,000000,2,,10',
             'chxs' => '0,000000,0,0,_',
-            'chxt' => 'y'
+            'chxt' => 'y',
+            'chbh' => 'a',
 //            'chf' => 'b0,lg,90,EA469EFF,1,03A9F47C,0.4',
         ];
 
