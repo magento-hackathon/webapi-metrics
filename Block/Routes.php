@@ -1,14 +1,15 @@
 <?php
 declare(strict_types = 1);
+
 namespace FireGento\WebapiMetrics\Block;
 
-use Magento\Backend\Block\Template\Context;
+use Magento\Backend\Block\Dashboard\AbstractDashboard;
 use Magento\Reports\Model\ResourceModel\Order\CollectionFactory;
 
 /**
  * Class Routes
  */
-class Routes extends \Magento\Backend\Block\Dashboard\AbstractDashboard
+class Routes extends AbstractDashboard
 {
     /**
      * @var string
@@ -16,7 +17,7 @@ class Routes extends \Magento\Backend\Block\Dashboard\AbstractDashboard
     protected $_template = 'FireGento_WebapiMetrics::dashboard/metrics.phtml';
 
     /**
-     * Api URL
+     * URL to chart API
      */
     const API_URL = 'https://image-charts.com/chart';
 
@@ -26,21 +27,6 @@ class Routes extends \Magento\Backend\Block\Dashboard\AbstractDashboard
      * @var \Magento\Backend\Helper\Dashboard\Data
      */
     protected $_dashboardData = null;
-
-    /**
-     * Routes constructor.
-     *
-     * @param Context           $context
-     * @param CollectionFactory $collectionFactory
-     * @param array             $data
-     */
-    public function __construct(
-        Context $context,
-        CollectionFactory $collectionFactory,
-        array $data = []
-    ) {
-        parent::__construct($context, $collectionFactory, $data);
-    }
 
     /**
      * Get chart url

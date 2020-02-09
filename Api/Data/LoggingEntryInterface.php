@@ -6,7 +6,6 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 
 /**
  * Class LoggingEntryInterface
- * @package FireGento\WebapiMetrics\Api\Data
  */
 interface LoggingEntryInterface extends ExtensibleDataInterface
 {
@@ -14,7 +13,7 @@ interface LoggingEntryInterface extends ExtensibleDataInterface
     const KEY_ROUTE_ID = 'route_id';
     const KEY_STATUS_CODE = 'status_code';
     const KEY_SIZE = 'size';
-    CONST KEY_EXECUTED_AT = 'executed_at';
+    const KEY_EXECUTED_AT = 'executed_at';
 
     /**
      * @return int

@@ -3,45 +3,80 @@
 namespace FireGento\WebapiMetrics\Model;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
-use FireGento\WebapiMetrics\Api\LoggingEntryRepositoryInterface;
-use FireGento\WebapiMetrics\Api\Data\LoggingEntrySearchResultsInterfaceFactory;
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterfaceFactory;
-use Magento\Framework\Api\DataObjectHelper;
-use Magento\Framework\Exception\CouldNotDeleteException;
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\Framework\Reflection\DataObjectProcessor;
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use FireGento\WebapiMetrics\Api\Data\LoggingEntrySearchResultsInterfaceFactory;
+use FireGento\WebapiMetrics\Api\LoggingEntryRepositoryInterface;
 use FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry as ResourceLoggingEntry;
 use FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry\CollectionFactory as LoggingEntryCollectionFactory;
-use Magento\Store\Model\StoreManagerInterface;
-use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
+use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
+use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Exception\CouldNotDeleteException;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Reflection\DataObjectProcessor;
+use Magento\Store\Model\StoreManagerInterface;
 
+/**
+ * Class LoggingEntryRepository
+ */
 class LoggingEntryRepository implements LoggingEntryRepositoryInterface
 {
-
+    /**
+     * @var ResourceLoggingEntry
+     */
     protected $resource;
 
+    /**
+     * @var LoggingEntryFactory
+     */
     protected $loggingEntryFactory;
 
+    /**
+     * @var LoggingEntryCollectionFactory
+     */
     protected $loggingEntryCollectionFactory;
 
+    /**
+     * @var LoggingEntrySearchResultsInterfaceFactory
+     */
     protected $searchResultsFactory;
 
+    /**
+     * @var DataObjectHelper
+     */
     protected $dataObjectHelper;
 
+    /**
+     * @var DataObjectProcessor
+     */
     protected $dataObjectProcessor;
 
+    /**
+     * @var LoggingEntryInterfaceFactory
+     */
     protected $dataLoggingEntryFactory;
 
+    /**
+     * @var JoinProcessorInterface
+     */
     protected $extensionAttributesJoinProcessor;
 
+    /**
+     * @var ExtensibleDataObjectConverter
+     */
+    protected $extensibleDataObjectConverter;
+
+    /**
+     * @var StoreManagerInterface
+     */
     private $storeManager;
 
+    /**
+     * @var CollectionProcessorInterface
+     */
     private $collectionProcessor;
-
-    protected $extensibleDataObjectConverter;
 
     /**
      * @param ResourceLoggingEntry $resource
@@ -85,13 +120,14 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function save(LoggingEntryInterface $loggingEntry) {
+    public function save(LoggingEntryInterface $loggingEntry)
+    {
         $loggingEntryData = $this->extensibleDataObjectConverter->toNestedArray(
             $loggingEntry,
             [],
             LoggingEntryInterface::class
         );
-        
+
         $loggingEntryModel = $this->loggingEntryFactory->create()->setData($loggingEntryData);
 
         try {
@@ -102,6 +138,7 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
                 $exception->getMessage()
             ));
         }
+
         return $loggingEntryModel->getDataModel();
     }
 
@@ -125,9 +162,9 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->loggingEntryCollectionFactory->create();
-        
+
         $this->collectionProcessor->process($criteria, $collection);
-        
+
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());

@@ -1,13 +1,12 @@
 <?php
 
-
 namespace FireGento\WebapiMetrics\Api;
 
-use Magento\Framework\Api\SearchCriteriaInterface;
-
+/**
+ * Interface LoggingRouteRepositoryInterface
+ */
 interface LoggingRouteRepositoryInterface
 {
-
     /**
      * Save LoggingRoute
      * @param \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface $loggingRoute

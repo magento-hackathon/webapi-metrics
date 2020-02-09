@@ -1,9 +1,7 @@
 <?php
 
-
 namespace FireGento\WebapiMetrics\Model;
 
-use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface;
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterfaceFactory;
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteSearchResultsInterfaceFactory;
@@ -20,30 +18,65 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Reflection\DataObjectProcessor;
 use Magento\Store\Model\StoreManagerInterface;
 
+/**
+ * Class LoggingRouteRepository
+ */
 class LoggingRouteRepository implements LoggingRouteRepositoryInterface
 {
-
+    /**
+     * @var ResourceLoggingRoute
+     */
     protected $resource;
 
+    /**
+     * @var LoggingRouteFactory
+     */
     protected $loggingRouteFactory;
 
+    /**
+     * @var LoggingRouteCollectionFactory
+     */
     protected $loggingRouteCollectionFactory;
 
+    /**
+     * @var LoggingRouteSearchResultsInterfaceFactory
+     */
     protected $searchResultsFactory;
 
+    /**
+     * @var DataObjectHelper
+     */
     protected $dataObjectHelper;
 
+    /**
+     * @var DataObjectProcessor
+     */
     protected $dataObjectProcessor;
 
+    /**
+     * @var LoggingRouteInterfaceFactory
+     */
     protected $dataLoggingRouteFactory;
 
+    /**
+     * @var JoinProcessorInterface
+     */
     protected $extensionAttributesJoinProcessor;
 
+    /**
+     * @var ExtensibleDataObjectConverter
+     */
+    protected $extensibleDataObjectConverter;
+
+    /**
+     * @var StoreManagerInterface
+     */
     private $storeManager;
 
+    /**
+     * @var CollectionProcessorInterface
+     */
     private $collectionProcessor;
-
-    protected $extensibleDataObjectConverter;
 
     /**
      * @param ResourceLoggingRoute $resource
@@ -87,7 +120,8 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function save(LoggingRouteInterface $loggingRoute) {
+    public function save(LoggingRouteInterface $loggingRoute)
+    {
         $loggingRouteData = $this->extensibleDataObjectConverter->toNestedArray(
             $loggingRoute,
             [],
@@ -102,11 +136,11 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
             LoggingRouteInterface::KEY_ROUTE_NAME
         );
 
-        //if no entity_id after load then we need set data changes and save it
-        if(!$loggingRouteModel->getEntityId()) {
+        // If no entity_id after load then we need set data changes and save it
+        if (!$loggingRouteModel->getEntityId()) {
             $loggingRouteModel->setDataChanges(true);
         }
-        
+
         try {
             $this->resource->save($loggingRouteModel);
         } catch (\Exception $exception) {
@@ -115,6 +149,7 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
                 $exception->getMessage()
             ));
         }
+
         return $loggingRouteModel->getDataModel();
     }
 
@@ -138,9 +173,9 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->loggingRouteCollectionFactory->create();
-        
+
         $this->collectionProcessor->process($criteria, $collection);
-        
+
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());

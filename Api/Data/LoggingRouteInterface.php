@@ -6,7 +6,6 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 
 /**
  * Class LoggingRouteInterface
- * @package FireGento\WebapiMetrics\Api\Data
  */
 interface LoggingRouteInterface extends ExtensibleDataInterface
 {
