@@ -1,0 +1,35 @@
+{
+    "fg_webapimetrics_logging_routes": {
+        "column": {
+            "entity_id": true,
+            "route_name": true,
+            "method_type": true
+        },
+        "index": {
+            "FG_WEBAPIMETRICS_LOGGING_ROUTES_ROUTE_NAME": true,
+            "FG_WEBAPIMETRICS_LOGGING_ROUTES_METHOD_TYPE": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FG_WEBAPIMETRICS_LOGGING_ROUTES_ROUTE_NAME_METHOD_TYPE": true
+        }
+    },
+    "fg_webapimetrics_logging_entry": {
+        "column": {
+            "entity_id": true,
+            "route_id": true,
+            "status_code": true,
+            "size": true,
+            "executed_at": true
+        },
+        "index": {
+            "FG_WEBAPIMETRICS_LOGGING_ENTRY_ROUTE_ID": true,
+            "FG_WEBAPIMETRICS_LOGGING_ENTRY_STATUS_CODE": true,
+            "FG_WEBAPIMETRICS_LOGGING_ENTRY_SIZE": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_9986421067B6B72CE5CF07BF335E0D1F": true
+        }
+    }
+}
