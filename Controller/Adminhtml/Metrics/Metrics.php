@@ -24,8 +24,7 @@ class Metrics extends \Magento\Backend\App\Action
     public function __construct(
         Action\Context $context,
         PageFactory $pageFactory
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->pageFactory = $pageFactory;
     }

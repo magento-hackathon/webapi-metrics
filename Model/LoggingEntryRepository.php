@@ -19,30 +19,65 @@ use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
 
+/**
+ * Class LoggingEntryRepository
+ */
 class LoggingEntryRepository implements LoggingEntryRepositoryInterface
 {
-
+    /**
+     * @var ResourceLoggingEntry
+     */
     protected $resource;
 
+    /**
+     * @var LoggingEntryFactory
+     */
     protected $loggingEntryFactory;
 
+    /**
+     * @var LoggingEntryCollectionFactory
+     */
     protected $loggingEntryCollectionFactory;
 
+    /**
+     * @var LoggingEntrySearchResultsInterfaceFactory
+     */
     protected $searchResultsFactory;
 
+    /**
+     * @var DataObjectHelper
+     */
     protected $dataObjectHelper;
 
+    /**
+     * @var DataObjectProcessor
+     */
     protected $dataObjectProcessor;
 
+    /**
+     * @var LoggingEntryInterfaceFactory
+     */
     protected $dataLoggingEntryFactory;
 
+    /**
+     * @var JoinProcessorInterface
+     */
     protected $extensionAttributesJoinProcessor;
 
+    /**
+     * @var ExtensibleDataObjectConverter
+     */
+    protected $extensibleDataObjectConverter;
+
+    /**
+     * @var StoreManagerInterface
+     */
     private $storeManager;
 
+    /**
+     * @var CollectionProcessorInterface
+     */
     private $collectionProcessor;
-
-    protected $extensibleDataObjectConverter;
 
     /**
      * @param ResourceLoggingEntry $resource
@@ -86,13 +121,14 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function save(LoggingEntryInterface $loggingEntry) {
+    public function save(LoggingEntryInterface $loggingEntry)
+    {
         $loggingEntryData = $this->extensibleDataObjectConverter->toNestedArray(
             $loggingEntry,
             [],
             LoggingEntryInterface::class
         );
-        
+
         $loggingEntryModel = $this->loggingEntryFactory->create()->setData($loggingEntryData);
 
         try {
@@ -103,6 +139,7 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
                 $exception->getMessage()
             ));
         }
+
         return $loggingEntryModel->getDataModel();
     }
 
@@ -126,22 +163,22 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->loggingEntryCollectionFactory->create();
-        
+
         $this->extensionAttributesJoinProcessor->process(
             $collection,
             LoggingEntryInterface::class
         );
-        
+
         $this->collectionProcessor->process($criteria, $collection);
-        
+
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
-        
+
         $items = [];
         foreach ($collection as $model) {
             $items[] = $model->getDataModel();
         }
-        
+
         $searchResults->setItems($items);
         $searchResults->setTotalCount($collection->getSize());
         return $searchResults;

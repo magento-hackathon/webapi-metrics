@@ -2,10 +2,8 @@
 
 namespace FireGento\WebapiMetrics\Api\Data;
 
-
 /**
  * Class LoggingRouteInterface
- * @package FireGento\WebapiMetrics\Api\Data
  */
 interface LoggingRouteInterface
 {
@@ -45,5 +43,4 @@ interface LoggingRouteInterface
      * @return self
      */
     public function setMethodType(string $methodType);
-
 }

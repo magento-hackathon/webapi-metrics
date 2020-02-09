@@ -2,7 +2,6 @@
 
 namespace FireGento\WebapiMetrics\Observer;
 
-
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterfaceFactory;
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface;
@@ -14,10 +13,10 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Webapi\Rest\Response;
 use Magento\Webapi\Controller\Rest\InputParamsResolver;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class SendResponseBefore
- * @package FireGento\WebapiMetrics\Observer
  */
 class SendResponseBefore implements ObserverInterface
 {
@@ -25,22 +24,31 @@ class SendResponseBefore implements ObserverInterface
      * @var LoggingRouteRepositoryInterface
      */
     private $loggingRouteRepository;
+
     /**
      * @var LoggingEntryRepositoryInterface
      */
     private $loggingEntryRepository;
+
     /**
      * @var LoggingRouteInterfaceFactory
      */
     private $loggingRouteInterfaceFactory;
+
     /**
      * @var InputParamsResolver
      */
     private $inputParamsResolver;
+
     /**
      * @var LoggingEntryInterfaceFactory
      */
     private $loggingEntryInterfaceFactory;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     /**
      * SendResponseBefore constructor.
@@ -49,22 +57,27 @@ class SendResponseBefore implements ObserverInterface
      * @param LoggingRouteRepositoryInterface $loggingRouteRepository
      * @param LoggingEntryRepositoryInterface $loggingEntryRepository
      * @param InputParamsResolver $inputParamsResolver
+     * @param LoggerInterface $logger
      */
     public function __construct(
         LoggingRouteInterfaceFactory $loggingRouteInterfaceFactory,
         LoggingEntryInterfaceFactory $loggingEntryInterfaceFactory,
         LoggingRouteRepositoryInterface $loggingRouteRepository,
         LoggingEntryRepositoryInterface $loggingEntryRepository,
-        InputParamsResolver $inputParamsResolver
+        InputParamsResolver $inputParamsResolver,
+        LoggerInterface $logger
     ) {
         $this->loggingRouteRepository = $loggingRouteRepository;
         $this->loggingEntryRepository = $loggingEntryRepository;
         $this->loggingRouteInterfaceFactory = $loggingRouteInterfaceFactory;
         $this->inputParamsResolver = $inputParamsResolver;
         $this->loggingEntryInterfaceFactory = $loggingEntryInterfaceFactory;
+        $this->logger = $logger;
     }
 
     /**
+     * Execute
+     *
      * @param Observer $observer
      * @return void
      */
@@ -84,11 +97,13 @@ class SendResponseBefore implements ObserverInterface
 
             $this->saveLoggingEntry($route->getEntityId(), $response);
         } catch (\Exception $exception) {
-            //TODO Add logger exception
+            $this->logger->error($exception->getMessage());
         }
     }
 
     /**
+     * Returns the ID of the route
+     *
      * @param string $method
      * @param string $routePath
      * @return LoggingRouteInterface
@@ -101,9 +116,17 @@ class SendResponseBefore implements ObserverInterface
         $loggingRoute->setRouteName($routePath);
         $loggingRoute->setMethodType($method);
 
-       return $this->loggingRouteRepository->save($loggingRoute);
+        return $this->loggingRouteRepository->save($loggingRoute);
     }
 
+    /**
+     * Save logging entry
+     *
+     * @param int $routeId
+     * @param Response $response
+     * @return LoggingEntryInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     protected function saveLoggingEntry(int $routeId, Response $response)
     {
         /** @var LoggingEntryInterface $loggingEntry */

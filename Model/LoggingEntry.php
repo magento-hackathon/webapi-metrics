@@ -1,19 +1,29 @@
 <?php
 
-
 namespace FireGento\WebapiMetrics\Model;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterfaceFactory;
 use Magento\Framework\Api\DataObjectHelper;
 
+/**
+ * Class LoggingEntry
+ */
 class LoggingEntry extends \Magento\Framework\Model\AbstractModel
 {
-
+    /**
+     * @var LoggingEntryInterfaceFactory
+     */
     protected $loggingentryDataFactory;
 
+    /**
+     * @var DataObjectHelper
+     */
     protected $dataObjectHelper;
 
+    /**
+     * @var string
+     */
     protected $_eventPrefix = 'firegento_webapimetrics_loggingentry';
 
     /**
@@ -41,19 +51,20 @@ class LoggingEntry extends \Magento\Framework\Model\AbstractModel
 
     /**
      * Retrieve loggingentry model with loggingentry data
+     *
      * @return LoggingEntryInterface
      */
     public function getDataModel()
     {
         $loggingentryData = $this->getData();
-        
+
         $loggingentryDataObject = $this->loggingentryDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $loggingentryDataObject,
             $loggingentryData,
             LoggingEntryInterface::class
         );
-        
+
         return $loggingentryDataObject;
     }
 }
