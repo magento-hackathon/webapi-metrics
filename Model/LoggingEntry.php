@@ -1,20 +1,25 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace FireGento\WebapiMetrics\Model;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterfaceFactory;
+use FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry\Collection;
 use Magento\Framework\Api\DataObjectHelper;
+use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
 
 /**
  * Class LoggingEntry
  */
-class LoggingEntry extends \Magento\Framework\Model\AbstractModel
+class LoggingEntry extends AbstractModel
 {
     /**
      * @var LoggingEntryInterfaceFactory
      */
-    protected $loggingentryDataFactory;
+    protected $loggingEntryDataFactory;
 
     /**
      * @var DataObjectHelper
@@ -27,43 +32,43 @@ class LoggingEntry extends \Magento\Framework\Model\AbstractModel
     protected $_eventPrefix = 'firegento_webapimetrics_loggingentry';
 
     /**
-     * @param \Magento\Framework\Model\Context                                     $context
-     * @param \Magento\Framework\Registry                                          $registry
-     * @param LoggingEntryInterfaceFactory                                         $loggingentryDataFactory
-     * @param DataObjectHelper                                                     $dataObjectHelper
-     * @param \FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry            $resource
-     * @param \FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry\Collection $resourceCollection
-     * @param array                                                                $data
+     * @param Context $context
+     * @param Registry $registry
+     * @param LoggingEntryInterfaceFactory $loggingEntryDataFactory
+     * @param DataObjectHelper $dataObjectHelper
+     * @param ResourceModel\LoggingEntry $resource
+     * @param Collection $resourceCollection
+     * @param array $data
      */
     public function __construct(
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
-        LoggingEntryInterfaceFactory $loggingentryDataFactory,
+        Context $context,
+        Registry $registry,
+        LoggingEntryInterfaceFactory $loggingEntryDataFactory,
         DataObjectHelper $dataObjectHelper,
-        \FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry $resource,
-        \FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry\Collection $resourceCollection,
+        ResourceModel\LoggingEntry $resource,
+        Collection $resourceCollection,
         array $data = []
     ) {
-        $this->loggingentryDataFactory = $loggingentryDataFactory;
-        $this->dataObjectHelper = $dataObjectHelper;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
+        $this->loggingEntryDataFactory = $loggingEntryDataFactory;
+        $this->dataObjectHelper = $dataObjectHelper;
     }
 
     /**
-     * Retrieve loggingentry model with loggingentry data
+     * Retrieve logging entry model with logging entry data
      *
      * @return LoggingEntryInterface
      */
     public function getDataModel()
     {
-        $loggingentryData = $this->getData();
-        $loggingentryDataObject = $this->loggingentryDataFactory->create();
+        $loggingEntryData = $this->getData();
+        $loggingEntryDataObject = $this->loggingEntryDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
-            $loggingentryDataObject,
-            $loggingentryData,
+            $loggingEntryDataObject,
+            $loggingEntryData,
             LoggingEntryInterface::class
         );
 
-        return $loggingentryDataObject;
+        return $loggingEntryDataObject;
     }
 }
