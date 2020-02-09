@@ -62,12 +62,13 @@ class SendResponseBefore implements ObserverInterface
 
     /**
      * SendResponseBefore constructor.
-     * @param LoggingRouteInterfaceFactory $loggingRouteInterfaceFactory
-     * @param LoggingEntryInterfaceFactory $loggingEntryInterfaceFactory
+     *
+     * @param LoggingRouteInterfaceFactory    $loggingRouteInterfaceFactory
+     * @param LoggingEntryInterfaceFactory    $loggingEntryInterfaceFactory
      * @param LoggingRouteRepositoryInterface $loggingRouteRepository
      * @param LoggingEntryRepositoryInterface $loggingEntryRepository
-     * @param InputParamsResolver $inputParamsResolver
-     * @param LoggerInterface $logger
+     * @param InputParamsResolver             $inputParamsResolver
+     * @param LoggerInterface                 $logger
      */
     public function __construct(
         LoggingRouteInterfaceFactory $loggingRouteInterfaceFactory,
@@ -89,9 +90,11 @@ class SendResponseBefore implements ObserverInterface
      * Execute
      *
      * @param Observer $observer
+     *
      * @return void
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function execute(Observer $observer)
+    public function execute(Observer $observer): void
     {
         /** @var Http $request */
         $request = $observer->getData('request');
@@ -119,10 +122,11 @@ class SendResponseBefore implements ObserverInterface
      *
      * @param string $method
      * @param string $routePath
+     *
      * @return LoggingRouteInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    protected function getRouteId(string $method, string $routePath)
+    protected function getRouteId(string $method, string $routePath): LoggingRouteInterface
     {
         /** @var LoggingRouteInterface $loggingRoute */
         $loggingRoute = $this->loggingRouteInterfaceFactory->create();
@@ -135,12 +139,14 @@ class SendResponseBefore implements ObserverInterface
     /**
      * Save logging entry
      *
-     * @param int $routeId
-     * @param Response $response
+     * @param string $routeId
+     * @param string $statusCode
+     * @param string $body
+     *
      * @return LoggingEntryInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    protected function saveLoggingEntry(string $routeId, string $statusCode, string $body)
+    protected function saveLoggingEntry(string $routeId, string $statusCode, string $body): LoggingEntryInterface
     {
         /** @var LoggingEntryInterface $loggingEntry */
         $loggingEntry = $this->loggingEntryInterfaceFactory->create();
@@ -151,10 +157,19 @@ class SendResponseBefore implements ObserverInterface
         return $this->loggingEntryRepository->save($loggingEntry);
     }
 
+    /**
+     * Log on __destruct
+     *
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     public function __destruct()
     {
         if ($this->responseToLog instanceof Response) {
-            $this->saveLoggingEntry($this->eventIdToLog, $this->responseToLog);
+            $this->saveLoggingEntry(
+                $this->eventIdToLog,
+                $this->responseToLog->getStatusCode(),
+                $this->responseToLog->getBody()
+            );
         }
     }
 }
