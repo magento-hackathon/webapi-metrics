@@ -10,7 +10,6 @@ use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\Search\FilterGroupBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Reports\Model\ResourceModel\Order\CollectionFactory;
-use Magento\Backend\Block\Dashboard\AbstractDashboard;
 
 /**
  * Class Routes

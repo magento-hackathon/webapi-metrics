@@ -1,14 +1,17 @@
 <?php
 declare(strict_types = 1);
+
 namespace FireGento\WebapiMetrics\Controller\Adminhtml\Metrics;
 
 use Magento\Backend\App\Action;
+use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
 
 /**
  * Class Metrics
  */
-class Metrics extends \Magento\Backend\App\Action
+class Metrics extends Action
 {
     /**
      * @var PageFactory
@@ -30,7 +33,9 @@ class Metrics extends \Magento\Backend\App\Action
     }
 
     /**
-     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|void
+     * Execute action based on request and return result
+     *
+     * @return ResponseInterface|ResultInterface|void
      */
     public function execute()
     {

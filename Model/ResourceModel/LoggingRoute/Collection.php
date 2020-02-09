@@ -1,19 +1,24 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace FireGento\WebapiMetrics\Model\ResourceModel\LoggingRoute;
 
-class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
+use FireGento\WebapiMetrics\Model\LoggingRoute;
+use FireGento\WebapiMetrics\Model\ResourceModel\LoggingRoute as LoggingRouteResource;
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+
+/**
+ * Class Collection
+ */
+class Collection extends AbstractCollection
 {
     /**
      * Define resource model
      *
      * @return void
      */
-    protected function _construct() : void
+    protected function _construct(): void
     {
-        $this->_init(
-            \FireGento\WebapiMetrics\Model\LoggingRoute::class,
-            \FireGento\WebapiMetrics\Model\ResourceModel\LoggingRoute::class
-        );
+        $this->_init(LoggingRoute::class, LoggingRouteResource::class);
     }
 }

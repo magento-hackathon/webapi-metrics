@@ -2,7 +2,12 @@
 declare(strict_types = 1);
 namespace FireGento\WebapiMetrics\Model\ResourceModel;
 
-class LoggingRoute extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+
+/**
+ * Class LoggingRoute
+ */
+class LoggingRoute extends AbstractDb
 {
     /**
      * Define resource model

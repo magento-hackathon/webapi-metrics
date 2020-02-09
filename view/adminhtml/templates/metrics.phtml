@@ -2,14 +2,8 @@
 /** @var \FireGento\WebapiMetrics\Block\Routes $block */
 ?>
 <div class="dashboard-diagram">
-<!--    --><?php //if ($block->getCount()): ?>
-        <div class="dashboard-diagram-image">
-            <img src="<?= $block->escapeUrl($block->getChartUrl()) ?>" class="dashboard-diagram-chart" alt="Chart"
-                 title="Chart"/>
-        </div>
-<!--    <?php /*else: */?>
-        <div class="dashboard-diagram-nodata">
-            <span><?/*= $block->escapeHtml(__('No Data Found')) */?></span>
-        </div>
-    --><?php /*endif; */?>
+    <div class="dashboard-diagram-image">
+        <img src="<?= $block->escapeUrl($block->getChartUrl()) ?>" class="dashboard-diagram-chart" alt="Chart"
+             title="Chart"/>
+    </div>
 </div>

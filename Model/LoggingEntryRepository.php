@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace FireGento\WebapiMetrics\Model;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
@@ -79,6 +80,8 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     private $collectionProcessor;
 
     /**
+     * LoggingEntryRepository constructor.
+     *
      * @param ResourceLoggingEntry                      $resource
      * @param LoggingEntryFactory                       $loggingEntryFactory
      * @param LoggingEntryInterfaceFactory              $dataLoggingEntryFactory
@@ -118,7 +121,7 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function save(LoggingEntryInterface $loggingEntry)
     {
@@ -131,17 +134,14 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
         try {
             $this->resource->save($loggingEntryModel);
         } catch (\Exception $exception) {
-            throw new CouldNotSaveException(__(
-                'Could not save the loggingEntry: %1',
-                $exception->getMessage()
-            ));
+            throw new CouldNotSaveException(__('Could not save the loggingEntry: %1', $exception->getMessage()));
         }
 
         return $loggingEntryModel->getDataModel();
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function get($loggingEntryId)
     {
@@ -155,7 +155,7 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getList(
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
@@ -171,7 +171,7 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function delete(
         LoggingEntryInterface $loggingEntry
@@ -181,17 +181,14 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
             $this->resource->load($loggingEntryModel, $loggingEntry->getEntityId());
             $this->resource->delete($loggingEntryModel);
         } catch (\Exception $exception) {
-            throw new CouldNotDeleteException(__(
-                'Could not delete the LoggingEntry: %1',
-                $exception->getMessage()
-            ));
+            throw new CouldNotDeleteException(__('Could not delete the LoggingEntry: %1', $exception->getMessage()));
         }
 
         return true;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function deleteById($loggingEntryId)
     {
