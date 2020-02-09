@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+
 namespace FireGento\WebapiMetrics\Model\Data;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface;
@@ -10,7 +10,7 @@ class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInter
     /**
      * Get Entity ID
      *
-     * @return int|null
+     * @return int
      */
     public function getEntityId()
     {
@@ -21,8 +21,7 @@ class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInter
      * Set Entity ID
      *
      * @param int $entityId
-     *
-     * @return \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface
+     * @return self
      */
     public function setEntityId($entityId)
     {
@@ -30,21 +29,20 @@ class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInter
     }
 
     /**
-     * Get route_name
+     * Get route name
      *
-     * @return string|null
+     * @return string
      */
-    public function getRouteName() : string
+    public function getRouteName()
     {
         return $this->_get(LoggingRouteInterface::KEY_ROUTE_NAME);
     }
 
     /**
-     * Set route_name
+     * Set route name
      *
      * @param string $routeName
-     *
-     * @return \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface
+     * @return self
      */
     public function setRouteName($routeName)
     {
@@ -52,16 +50,19 @@ class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInter
     }
 
     /**
+     * Get method type
+     *
      * @return string
      */
-    public function getMethodType() : string
+    public function getMethodType()
     {
         return $this->_get(LoggingRouteInterface::KEY_METHOD_TYPE);
     }
 
     /**
-     * @param string $methodType
+     * Set method type
      *
+     * @param string $methodType
      * @return self
      */
     public function setMethodType(string $methodType)
@@ -70,24 +71,24 @@ class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInter
     }
 
     /**
-     * @inheritDoc
+     * Retrieve existing extension attributes object or create a new one.
+     *
+     * @return \FireGento\WebapiMetrics\Api\Data\LoggingRouteExtensionInterface|null
      */
     public function getExtensionAttributes()
     {
-        $extensionAttributes = $this->_getExtensionAttributes();
-        if (null === $extensionAttributes) {
-            $extensionAttributes = $this->extensionFactory->create(LoggingRouteInterface::class);
-            $this->setExtensionAttributes($extensionAttributes);
-        }
-
-        return $extensionAttributes;
+        return $this->_getExtensionAttributes();
     }
 
     /**
-     * @inheritDoc
+     * Set an extension attributes object.
+     *
+     * @param \FireGento\WebapiMetrics\Api\Data\LoggingRouteExtensionInterface $extensionAttributes
+     * @return $this
      */
-    public function setExtensionAttributes(\Magento\Framework\Api\ExtensionAttributesInterface $extensionAttributes)
-    {
-        $this->_setExtensionAttributes($extensionAttributes);
+    public function setExtensionAttributes(
+        \FireGento\WebapiMetrics\Api\Data\LoggingRouteExtensionInterface $extensionAttributes
+    ) {
+        return $this->_setExtensionAttributes($extensionAttributes);
     }
 }

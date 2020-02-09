@@ -4,7 +4,6 @@ namespace FireGento\WebapiMetrics\Model\Data;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
 use Magento\Framework\Api\AbstractExtensibleObject;
-use Magento\Framework\Api\AttributeValueFactory;
 
 /**
  * Class LoggingEntry
@@ -22,7 +21,7 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     }
 
     /**
-     * Set loggingentry_id
+     * Set entity_id
      *
      * @param string $entityId
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface
@@ -33,6 +32,8 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     }
 
     /**
+     * Get route ID
+     *
      * @return int
      */
     public function getRouteId()
@@ -41,7 +42,9 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     }
 
     /**
-     * @param $routeId
+     * Set route ID
+     *
+     * @param int $routeId
      * @return self
      */
     public function setRouteId($routeId)
@@ -63,7 +66,7 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
      * Set executed_at
      *
      * @param string $executedAt
-     * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface
+     * @return self
      */
     public function setExecutedAt($executedAt)
     {
@@ -71,6 +74,8 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     }
 
     /**
+     * Get status code
+     *
      * @return int
      */
     public function getStatusCode(): int
@@ -79,6 +84,8 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     }
 
     /**
+     * Set status code
+     *
      * @param int $statusCode
      * @return self
      */
@@ -88,6 +95,8 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     }
 
     /**
+     * Get size
+     *
      * @return int
      */
     public function getSize(): int
@@ -96,6 +105,8 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     }
 
     /**
+     * Set size
+     *
      * @param int $size
      * @return self
      */
@@ -105,28 +116,9 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     }
 
     /**
-     * @inheritDoc
-     */
-    public function getExtensionAttributes()
-    {
-        $extensionAttributes = $this->_getExtensionAttributes();
-        if (null === $extensionAttributes) {
-            $extensionAttributes = $this->extensionFactory->create(LoggingEntryInterface::class);
-            $this->setExtensionAttributes($extensionAttributes);
-        }
-        return $extensionAttributes;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setExtensionAttributes(\Magento\Framework\Api\ExtensionAttributesInterface $extensionAttributes)
-    {
-        $this->_setExtensionAttributes($extensionAttributes);
-    }
-
-    /**
-     * @return mixed|null
+     * Get route name
+     *
+     * @return mixed
      */
     public function getRouteName()
     {
@@ -134,17 +126,20 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     }
 
     /**
-     * @param string $route
+     * Set route name
      *
-     * @return \FireGento\WebapiMetrics\Model\Data\LoggingEntry|mixed
+     * @param string|null $route
+     * @return mixed
      */
-    public function setRouteName(string $route)
+    public function setRouteName($route)
     {
         return $this->setData(LoggingEntryInterface::KEY_ROUTE_NAME, $route);
     }
 
     /**
-     * @return mixed|void
+     * Get method type
+     *
+     * @return mixed
      */
     public function getMethodType()
     {
@@ -152,12 +147,35 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     }
 
     /**
-     * @param string $methodType
+     * Set method type
      *
-     * @return mixed|void
+     * @param string|null $methodType
+     * @return mixed
      */
-    public function setMethodType(string $methodType)
+    public function setMethodType($methodType)
     {
         return $this->setData(LoggingEntryInterface::KEY_METHOD_TYPE, $methodType);
+    }
+
+    /**
+     * Retrieve existing extension attributes object or create a new one.
+     *
+     * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface|null
+     */
+    public function getExtensionAttributes()
+    {
+        return $this->_getExtensionAttributes();
+    }
+
+    /**
+     * Set an extension attributes object.
+     *
+     * @param \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface $extensionAttributes
+     * @return $this
+     */
+    public function setExtensionAttributes(
+        \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface $extensionAttributes
+    ) {
+        return $this->_setExtensionAttributes($extensionAttributes);
     }
 }
