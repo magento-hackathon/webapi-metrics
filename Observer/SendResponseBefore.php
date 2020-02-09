@@ -116,7 +116,7 @@ class SendResponseBefore implements ObserverInterface
     }
 
     /**
-     * Returns the ID of the route
+     * Save logging route
      *
      * @param string $method
      * @param string $routePath
