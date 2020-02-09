@@ -124,4 +124,40 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     {
         $this->_setExtensionAttributes($extensionAttributes);
     }
+
+    /**
+     * @return mixed|null
+     */
+    public function getRouteName()
+    {
+        return $this->_get(LoggingEntryInterface::KEY_ROUTE_NAME);
+    }
+
+    /**
+     * @param string $route
+     *
+     * @return \FireGento\WebapiMetrics\Model\Data\LoggingEntry|mixed
+     */
+    public function setRouteName(string $route)
+    {
+        return $this->setData(LoggingEntryInterface::KEY_ROUTE_NAME, $route);
+    }
+
+    /**
+     * @return mixed|void
+     */
+    public function getMethodType()
+    {
+        return $this->_get(LoggingEntryInterface::KEY_METHOD_TYPE);
+    }
+
+    /**
+     * @param string $methodType
+     *
+     * @return mixed|void
+     */
+    public function setMethodType(string $methodType)
+    {
+        return $this->setData(LoggingEntryInterface::KEY_METHOD_TYPE, $methodType);
+    }
 }

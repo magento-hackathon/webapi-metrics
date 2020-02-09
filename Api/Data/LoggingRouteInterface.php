@@ -9,9 +9,9 @@ use Magento\Framework\Api\ExtensibleDataInterface;
  */
 interface LoggingRouteInterface extends ExtensibleDataInterface
 {
-    const KEY_ENTITY_ID = 'entity_id';
-    const KEY_ROUTE_NAME = 'route_name';
-    const KEY_METHOD_TYPE = 'method_type';
+    public const KEY_ENTITY_ID   = 'entity_id';
+    public const KEY_ROUTE_NAME  = 'route_name';
+    public const KEY_METHOD_TYPE = 'method_type';
 
     /**
      * @return int
@@ -20,6 +20,7 @@ interface LoggingRouteInterface extends ExtensibleDataInterface
 
     /**
      * @param int $entityId
+     *
      * @return self
      */
     public function setEntityId(int $entityId);
@@ -31,6 +32,7 @@ interface LoggingRouteInterface extends ExtensibleDataInterface
 
     /**
      * @param string $routeName
+     *
      * @return self
      */
     public function setRouteName(string $routeName);
@@ -42,6 +44,7 @@ interface LoggingRouteInterface extends ExtensibleDataInterface
 
     /**
      * @param string $methodType
+     *
      * @return self
      */
     public function setMethodType(string $methodType);

@@ -14,7 +14,9 @@ interface LoggingRouteSearchResultsInterface extends \Magento\Framework\Api\Sear
 
     /**
      * Set route_name list.
+     *
      * @param \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface[] $items
+     *
      * @return $this
      */
     public function setItems(array $items);
