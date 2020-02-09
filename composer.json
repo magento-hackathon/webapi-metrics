@@ -1,6 +1,10 @@
 {
   "name":"firegento/webapi_metrics",
   "description":"Webapi Metrics",
+  "require": {
+      "php": "~7.1.3||~7.2.0||~7.3.0",
+      "magento/module-backend": "*"
+  },
   "type":"magento2-module",
   "license": "proprietary",
   "autoload": {
