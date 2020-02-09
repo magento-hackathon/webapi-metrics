@@ -51,6 +51,16 @@ class SendResponseBefore implements ObserverInterface
     private $logger;
 
     /**
+     * @var int
+     */
+    private $eventIdToLog;
+
+    /**
+     * @var Response
+     */
+    private $responseToLog;
+
+    /**
      * SendResponseBefore constructor.
      * @param LoggingRouteInterfaceFactory $loggingRouteInterfaceFactory
      * @param LoggingEntryInterfaceFactory $loggingEntryInterfaceFactory
@@ -95,7 +105,8 @@ class SendResponseBefore implements ObserverInterface
             /** @var LoggingRouteInterface $route */
             $route = $this->getRouteId($request->getMethod(), $routePath);
 
-            $this->saveLoggingEntry($route->getEntityId(), $response);
+            $this->eventIdToLog = $route->getEntityId();
+            $this->responseToLog = $response;
         } catch (\Exception $exception) {
             $this->logger->error($exception->getMessage());
         }
@@ -136,5 +147,12 @@ class SendResponseBefore implements ObserverInterface
         $loggingEntry->setSize(strlen($response->getBody()));
 
         return $this->loggingEntryRepository->save($loggingEntry);
+    }
+
+    public function __destruct()
+    {
+        if ($this->responseToLog instanceof Response) {
+            $this->saveLoggingEntry($this->eventIdToLog, $this->responseToLog);
+        }
     }
 }
