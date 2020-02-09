@@ -2,12 +2,13 @@
 
 namespace FireGento\WebapiMetrics\Api\Data;
 
+use Magento\Framework\Api\ExtensibleDataInterface;
 
 /**
  * Class LoggingEntryInterface
  * @package FireGento\WebapiMetrics\Api\Data
  */
-interface LoggingEntryInterface
+interface LoggingEntryInterface extends ExtensibleDataInterface
 {
     const KEY_ENTITY_ID = 'entity_id';
     const KEY_ROUTE_ID = 'route_id';
@@ -70,4 +71,14 @@ interface LoggingEntryInterface
      */
     public function setExecutedAt(string $executedAt);
 
+    /**
+     * @return \Magento\Framework\Api\ExtensionAttributesInterface|null
+     */
+    public function getExtensionAttributes();
+
+    /**
+     * @param \Magento\Framework\Api\ExtensionAttributesInterface $extensionAttributes
+     * @return void
+     */
+    public function setExtensionAttributes(\Magento\Framework\Api\ExtensionAttributesInterface $extensionAttributes);
 }

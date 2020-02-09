@@ -1,6 +1,5 @@
 <?php
 
-
 namespace FireGento\WebapiMetrics\Model;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
@@ -127,23 +126,12 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     ) {
         $collection = $this->loggingEntryCollectionFactory->create();
         
-        $this->extensionAttributesJoinProcessor->process(
-            $collection,
-            LoggingEntryInterface::class
-        );
-        
         $this->collectionProcessor->process($criteria, $collection);
         
         $searchResults = $this->searchResultsFactory->create();
-        $searchResults->setSearchCriteria($criteria);
-        
-        $items = [];
-        foreach ($collection as $model) {
-            $items[] = $model->getDataModel();
-        }
-        
-        $searchResults->setItems($items);
+        $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
+        $searchResults->setSearchCriteria($criteria);
         return $searchResults;
     }
 
