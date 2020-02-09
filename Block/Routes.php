@@ -9,6 +9,7 @@ use Magento\Backend\Block\Template\Context;
 use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\Search\FilterGroupBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Reports\Model\ResourceModel\Order\CollectionFactory;
 use Magento\Backend\Block\Dashboard\AbstractDashboard;
 
@@ -74,6 +75,17 @@ class Routes extends \Magento\Backend\Block\Dashboard\AbstractDashboard
     }
 
     /**
+     * @return bool|int
+     * @throws LocalizedException
+     */
+    public function getCount()
+    {
+        $routes = $this->loggingRouteRepository->getList($this->searchCriteriaBuilder->create())->getItems();
+
+        return (bool) count($routes) > 0;
+    }
+
+    /**
      * Get chart url
      *
      * @return string
@@ -81,7 +93,7 @@ class Routes extends \Magento\Backend\Block\Dashboard\AbstractDashboard
      * @SuppressWarnings(PHPMD.NPathComplexity)
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      */
     public function getChartUrl()
     {
