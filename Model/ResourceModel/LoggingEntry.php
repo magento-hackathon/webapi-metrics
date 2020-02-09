@@ -1,10 +1,9 @@
 <?php
-
+declare(strict_types = 1);
 namespace FireGento\WebapiMetrics\Model\ResourceModel;
 
 class LoggingEntry extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
-
     /**
      * Define resource model
      *
@@ -29,13 +28,14 @@ class LoggingEntry extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     {
         $field = $this->getConnection()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
         $select = $this->getConnection()
-            ->select()
-            ->from($this->getMainTable())
-            ->where($field . '=?', $value)
-            ->join(
-                'fg_webapimetrics_logging_routes',
-                'fg_webapimetrics_logging_entry.route_id = fg_webapimetrics_logging_routes.entity_id'
-            );
+                       ->select()
+                       ->from($this->getMainTable())
+                       ->where($field . '=?', $value)
+                       ->join(
+                           'fg_webapimetrics_logging_routes',
+                           'fg_webapimetrics_logging_entry.route_id = fg_webapimetrics_logging_routes.entity_id'
+                       );
+
         return $select;
     }
 }

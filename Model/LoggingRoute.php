@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace FireGento\WebapiMetrics\Model;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface;
@@ -27,13 +27,13 @@ class LoggingRoute extends \Magento\Framework\Model\AbstractModel
     protected $_eventPrefix = 'firegento_webapimetrics_loggingroute';
 
     /**
-     * @param \Magento\Framework\Model\Context $context
-     * @param \Magento\Framework\Registry $registry
-     * @param LoggingRouteInterfaceFactory $loggingrouteDataFactory
-     * @param DataObjectHelper $dataObjectHelper
-     * @param \FireGento\WebapiMetrics\Model\ResourceModel\LoggingRoute $resource
+     * @param \Magento\Framework\Model\Context                                     $context
+     * @param \Magento\Framework\Registry                                          $registry
+     * @param LoggingRouteInterfaceFactory                                         $loggingrouteDataFactory
+     * @param DataObjectHelper                                                     $dataObjectHelper
+     * @param \FireGento\WebapiMetrics\Model\ResourceModel\LoggingRoute            $resource
      * @param \FireGento\WebapiMetrics\Model\ResourceModel\LoggingRoute\Collection $resourceCollection
-     * @param array $data
+     * @param array                                                                $data
      */
     public function __construct(
         \Magento\Framework\Model\Context $context,
@@ -51,12 +51,12 @@ class LoggingRoute extends \Magento\Framework\Model\AbstractModel
 
     /**
      * Retrieve loggingroute model with loggingroute data
+     *
      * @return LoggingRouteInterface
      */
     public function getDataModel()
     {
         $loggingrouteData = $this->getData();
-
         $loggingrouteDataObject = $this->loggingrouteDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $loggingrouteDataObject,

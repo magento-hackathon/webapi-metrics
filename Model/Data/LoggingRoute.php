@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace FireGento\WebapiMetrics\Model\Data;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface;
@@ -9,6 +9,7 @@ class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInter
 {
     /**
      * Get Entity ID
+     *
      * @return int|null
      */
     public function getEntityId()
@@ -18,7 +19,9 @@ class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInter
 
     /**
      * Set Entity ID
+     *
      * @param int $entityId
+     *
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface
      */
     public function setEntityId($entityId)
@@ -28,16 +31,19 @@ class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInter
 
     /**
      * Get route_name
+     *
      * @return string|null
      */
-    public function getRouteName(): string
+    public function getRouteName() : string
     {
         return $this->_get(LoggingRouteInterface::KEY_ROUTE_NAME);
     }
 
     /**
      * Set route_name
+     *
      * @param string $routeName
+     *
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface
      */
     public function setRouteName($routeName)
@@ -48,13 +54,14 @@ class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInter
     /**
      * @return string
      */
-    public function getMethodType(): string
+    public function getMethodType() : string
     {
         return $this->_get(LoggingRouteInterface::KEY_METHOD_TYPE);
     }
 
     /**
      * @param string $methodType
+     *
      * @return self
      */
     public function setMethodType(string $methodType)
@@ -72,6 +79,7 @@ class LoggingRoute extends AbstractExtensibleObject implements LoggingRouteInter
             $extensionAttributes = $this->extensionFactory->create(LoggingRouteInterface::class);
             $this->setExtensionAttributes($extensionAttributes);
         }
+
         return $extensionAttributes;
     }
 

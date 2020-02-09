@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace FireGento\WebapiMetrics\Model;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
@@ -79,17 +79,17 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     private $collectionProcessor;
 
     /**
-     * @param ResourceLoggingEntry $resource
-     * @param LoggingEntryFactory $loggingEntryFactory
-     * @param LoggingEntryInterfaceFactory $dataLoggingEntryFactory
-     * @param LoggingEntryCollectionFactory $loggingEntryCollectionFactory
+     * @param ResourceLoggingEntry                      $resource
+     * @param LoggingEntryFactory                       $loggingEntryFactory
+     * @param LoggingEntryInterfaceFactory              $dataLoggingEntryFactory
+     * @param LoggingEntryCollectionFactory             $loggingEntryCollectionFactory
      * @param LoggingEntrySearchResultsInterfaceFactory $searchResultsFactory
-     * @param DataObjectHelper $dataObjectHelper
-     * @param DataObjectProcessor $dataObjectProcessor
-     * @param StoreManagerInterface $storeManager
-     * @param CollectionProcessorInterface $collectionProcessor
-     * @param JoinProcessorInterface $extensionAttributesJoinProcessor
-     * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
+     * @param DataObjectHelper                          $dataObjectHelper
+     * @param DataObjectProcessor                       $dataObjectProcessor
+     * @param StoreManagerInterface                     $storeManager
+     * @param CollectionProcessorInterface              $collectionProcessor
+     * @param JoinProcessorInterface                    $extensionAttributesJoinProcessor
+     * @param ExtensibleDataObjectConverter             $extensibleDataObjectConverter
      */
     public function __construct(
         ResourceLoggingEntry $resource,
@@ -127,9 +127,7 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
             [],
             LoggingEntryInterface::class
         );
-
         $loggingEntryModel = $this->loggingEntryFactory->create()->setData($loggingEntryData);
-
         try {
             $this->resource->save($loggingEntryModel);
         } catch (\Exception $exception) {
@@ -152,6 +150,7 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
         if (!$loggingEntry->getId()) {
             throw new NoSuchEntityException(__('LoggingEntry with id "%1" does not exist.', $loggingEntryId));
         }
+
         return $loggingEntry->getDataModel();
     }
 
@@ -162,13 +161,12 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->loggingEntryCollectionFactory->create();
-
         $this->collectionProcessor->process($criteria, $collection);
-
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
         $searchResults->setSearchCriteria($criteria);
+
         return $searchResults;
     }
 
@@ -188,6 +186,7 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
                 $exception->getMessage()
             ));
         }
+
         return true;
     }
 

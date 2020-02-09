@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace FireGento\WebapiMetrics\Observer;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
@@ -94,20 +94,17 @@ class SendResponseBefore implements ObserverInterface
      * @return void
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function execute(Observer $observer): void
+    public function execute(Observer $observer) : void
     {
         /** @var Http $request */
         $request = $observer->getData('request');
         /** @var Response $response */
         $response = $observer->getData('response');
-
         try {
             // with params e.g. V1/directory/countries/:countryId
             $routePath = $this->inputParamsResolver->getRoute()->getRoutePath();
-
             /** @var LoggingRouteInterface $route */
             $route = $this->getRouteId($request->getMethod(), $routePath);
-
             $this->eventIdToLog = $route->getEntityId();
             $this->responseToLog = $response;
         } catch (\Exception $exception) {
@@ -126,7 +123,7 @@ class SendResponseBefore implements ObserverInterface
      * @return LoggingRouteInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    protected function getRouteId(string $method, string $routePath): LoggingRouteInterface
+    protected function getRouteId(string $method, string $routePath) : LoggingRouteInterface
     {
         /** @var LoggingRouteInterface $loggingRoute */
         $loggingRoute = $this->loggingRouteInterfaceFactory->create();
@@ -146,7 +143,7 @@ class SendResponseBefore implements ObserverInterface
      * @return LoggingEntryInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    protected function saveLoggingEntry(string $routeId, string $statusCode, string $body): LoggingEntryInterface
+    protected function saveLoggingEntry(string $routeId, string $statusCode, string $body) : LoggingEntryInterface
     {
         /** @var LoggingEntryInterface $loggingEntry */
         $loggingEntry = $this->loggingEntryInterfaceFactory->create();

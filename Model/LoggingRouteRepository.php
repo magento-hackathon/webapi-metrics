@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace FireGento\WebapiMetrics\Model;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface;
@@ -79,17 +79,17 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
     private $collectionProcessor;
 
     /**
-     * @param ResourceLoggingRoute $resource
-     * @param LoggingRouteFactory $loggingRouteFactory
-     * @param LoggingRouteInterfaceFactory $dataLoggingRouteFactory
-     * @param LoggingRouteCollectionFactory $loggingRouteCollectionFactory
+     * @param ResourceLoggingRoute                      $resource
+     * @param LoggingRouteFactory                       $loggingRouteFactory
+     * @param LoggingRouteInterfaceFactory              $dataLoggingRouteFactory
+     * @param LoggingRouteCollectionFactory             $loggingRouteCollectionFactory
      * @param LoggingRouteSearchResultsInterfaceFactory $searchResultsFactory
-     * @param DataObjectHelper $dataObjectHelper
-     * @param DataObjectProcessor $dataObjectProcessor
-     * @param StoreManagerInterface $storeManager
-     * @param CollectionProcessorInterface $collectionProcessor
-     * @param JoinProcessorInterface $extensionAttributesJoinProcessor
-     * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
+     * @param DataObjectHelper                          $dataObjectHelper
+     * @param DataObjectProcessor                       $dataObjectProcessor
+     * @param StoreManagerInterface                     $storeManager
+     * @param CollectionProcessorInterface              $collectionProcessor
+     * @param JoinProcessorInterface                    $extensionAttributesJoinProcessor
+     * @param ExtensibleDataObjectConverter             $extensibleDataObjectConverter
      */
     public function __construct(
         ResourceLoggingRoute $resource,
@@ -127,7 +127,6 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
             [],
             LoggingRouteInterface::class
         );
-
         /** @var LoggingRoute $loggingRouteModel */
         $loggingRouteModel = $this->loggingRouteFactory->create()->setData($loggingRouteData);
         $this->resource->load(
@@ -135,12 +134,10 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
             $loggingRouteModel->getData(LoggingRouteInterface::KEY_ROUTE_NAME),
             LoggingRouteInterface::KEY_ROUTE_NAME
         );
-
         // If no entity_id after load then we need set data changes and save it
         if (!$loggingRouteModel->getEntityId()) {
             $loggingRouteModel->setDataChanges(true);
         }
-
         try {
             $this->resource->save($loggingRouteModel);
         } catch (\Exception $exception) {
@@ -163,6 +160,7 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
         if (!$loggingRoute->getId()) {
             throw new NoSuchEntityException(__('LoggingRoute with id "%1" does not exist.', $loggingRouteId));
         }
+
         return $loggingRoute->getDataModel();
     }
 
@@ -173,13 +171,12 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->loggingRouteCollectionFactory->create();
-
         $this->collectionProcessor->process($criteria, $collection);
-
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
         $searchResults->setSearchCriteria($criteria);
+
         return $searchResults;
     }
 
@@ -199,6 +196,7 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
                 $exception->getMessage()
             ));
         }
+
         return true;
     }
 

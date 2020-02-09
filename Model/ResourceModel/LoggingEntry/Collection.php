@@ -1,11 +1,9 @@
 <?php
-
-
+declare(strict_types = 1);
 namespace FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
-
     /**
      * Define resource model
      *
@@ -22,12 +20,13 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     protected function _initSelect()
     {
         $this->getSelect()
-            ->from(['main_table' => $this->getMainTable()])
-            ->join(
-                'fg_webapimetrics_logging_routes',
-                'main_table.route_id = fg_webapimetrics_logging_routes.entity_id',
-                ['route_name', 'method_type']
-            );
+             ->from(['main_table' => $this->getMainTable()])
+             ->join(
+                 'fg_webapimetrics_logging_routes',
+                 'main_table.route_id = fg_webapimetrics_logging_routes.entity_id',
+                 ['route_name', 'method_type']
+             );
+
         return $this;
     }
 }
