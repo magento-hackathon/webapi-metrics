@@ -1,19 +1,29 @@
 <?php
 
-
 namespace FireGento\WebapiMetrics\Model;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface;
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterfaceFactory;
 use Magento\Framework\Api\DataObjectHelper;
 
+/**
+ * Class LoggingRoute
+ */
 class LoggingRoute extends \Magento\Framework\Model\AbstractModel
 {
-
+    /**
+     * @var LoggingRouteInterfaceFactory
+     */
     protected $loggingrouteDataFactory;
 
+    /**
+     * @var DataObjectHelper
+     */
     protected $dataObjectHelper;
 
+    /**
+     * @var string
+     */
     protected $_eventPrefix = 'firegento_webapimetrics_loggingroute';
 
     /**
@@ -46,14 +56,14 @@ class LoggingRoute extends \Magento\Framework\Model\AbstractModel
     public function getDataModel()
     {
         $loggingrouteData = $this->getData();
-        
+
         $loggingrouteDataObject = $this->loggingrouteDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $loggingrouteDataObject,
             $loggingrouteData,
             LoggingRouteInterface::class
         );
-        
+
         return $loggingrouteDataObject;
     }
 }

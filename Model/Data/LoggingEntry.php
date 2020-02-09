@@ -1,15 +1,18 @@
 <?php
 
-
 namespace FireGento\WebapiMetrics\Model\Data;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
 use Magento\Framework\Api\AbstractExtensibleObject;
 
+/**
+ * Class LoggingEntry
+ */
 class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInterface
 {
     /**
      * Get entity_id
+     *
      * @return int
      */
     public function getEntityId()
@@ -19,6 +22,7 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
 
     /**
      * Set loggingentry_id
+     *
      * @param string $entityId
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface
      */
@@ -46,6 +50,7 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
 
     /**
      * Get executed_at
+     *
      * @return string|null
      */
     public function getExecutedAt()
@@ -55,6 +60,7 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
 
     /**
      * Set executed_at
+     *
      * @param string $executedAt
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface
      */
