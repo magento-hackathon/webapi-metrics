@@ -137,14 +137,14 @@ class SendResponseBefore implements ObserverInterface
     /**
      * Save logging entry
      *
-     * @param int $routeId
+     * @param int| $routeId
      * @param int $statusCode
      * @param string $body
      *
      * @return LoggingEntryInterface
      * @throws LocalizedException
      */
-    protected function saveLoggingEntry(int $routeId, int $statusCode, string $body) : LoggingEntryInterface
+    protected function saveLoggingEntry($routeId, int $statusCode, string $body) : LoggingEntryInterface
     {
         /** @var LoggingEntryInterface $loggingEntry */
         $loggingEntry = $this->loggingEntryInterfaceFactory->create();

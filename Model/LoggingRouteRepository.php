@@ -1,5 +1,6 @@
 <?php
 declare(strict_types = 1);
+
 namespace FireGento\WebapiMetrics\Model;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface;

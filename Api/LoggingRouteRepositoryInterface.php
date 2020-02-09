@@ -11,7 +11,6 @@ interface LoggingRouteRepositoryInterface
      * Save LoggingRoute
      *
      * @param \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface $loggingRoute
-     *
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -23,7 +22,6 @@ interface LoggingRouteRepositoryInterface
      * Retrieve LoggingRoute
      *
      * @param string $loggingrouteId
-     *
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -33,7 +31,6 @@ interface LoggingRouteRepositoryInterface
      * Retrieve LoggingRoute matching the specified criteria.
      *
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     *
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingRouteSearchResultsInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -45,7 +42,6 @@ interface LoggingRouteRepositoryInterface
      * Delete LoggingRoute
      *
      * @param \FireGento\WebapiMetrics\Api\Data\LoggingRouteInterface $loggingRoute
-     *
      * @return bool true on success
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -57,7 +53,6 @@ interface LoggingRouteRepositoryInterface
      * Delete LoggingRoute by ID
      *
      * @param string $loggingrouteId
-     *
      * @return bool true on success
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException
