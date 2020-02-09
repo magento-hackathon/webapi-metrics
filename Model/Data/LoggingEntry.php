@@ -4,6 +4,7 @@ namespace FireGento\WebapiMetrics\Model\Data;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
 use Magento\Framework\Api\AbstractExtensibleObject;
+use Magento\Framework\Api\AttributeValueFactory;
 
 /**
  * Class LoggingEntry
@@ -34,7 +35,7 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     /**
      * @return int
      */
-    public function getRouteId(): int
+    public function getRouteId()
     {
         return $this->_get(LoggingEntryInterface::KEY_ROUTE_ID);
     }
@@ -101,5 +102,26 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     public function setSize(int $size)
     {
         return $this->setData(LoggingEntryInterface::KEY_SIZE, $size);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getExtensionAttributes()
+    {
+        $extensionAttributes = $this->_getExtensionAttributes();
+        if (null === $extensionAttributes) {
+            $extensionAttributes = $this->extensionFactory->create(LoggingEntryInterface::class);
+            $this->setExtensionAttributes($extensionAttributes);
+        }
+        return $extensionAttributes;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setExtensionAttributes(\Magento\Framework\Api\ExtensionAttributesInterface $extensionAttributes)
+    {
+        $this->_setExtensionAttributes($extensionAttributes);
     }
 }

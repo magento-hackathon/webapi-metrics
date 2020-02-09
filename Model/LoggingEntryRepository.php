@@ -1,23 +1,22 @@
 <?php
 
-
 namespace FireGento\WebapiMetrics\Model;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
-use FireGento\WebapiMetrics\Api\LoggingEntryRepositoryInterface;
-use FireGento\WebapiMetrics\Api\Data\LoggingEntrySearchResultsInterfaceFactory;
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterfaceFactory;
-use Magento\Framework\Api\DataObjectHelper;
-use Magento\Framework\Exception\CouldNotDeleteException;
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\Framework\Reflection\DataObjectProcessor;
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use FireGento\WebapiMetrics\Api\Data\LoggingEntrySearchResultsInterfaceFactory;
+use FireGento\WebapiMetrics\Api\LoggingEntryRepositoryInterface;
 use FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry as ResourceLoggingEntry;
 use FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry\CollectionFactory as LoggingEntryCollectionFactory;
-use Magento\Store\Model\StoreManagerInterface;
-use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
+use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
+use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Exception\CouldNotDeleteException;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Reflection\DataObjectProcessor;
+use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Class LoggingEntryRepository
@@ -164,23 +163,12 @@ class LoggingEntryRepository implements LoggingEntryRepositoryInterface
     ) {
         $collection = $this->loggingEntryCollectionFactory->create();
 
-        $this->extensionAttributesJoinProcessor->process(
-            $collection,
-            LoggingEntryInterface::class
-        );
-
         $this->collectionProcessor->process($criteria, $collection);
 
         $searchResults = $this->searchResultsFactory->create();
-        $searchResults->setSearchCriteria($criteria);
-
-        $items = [];
-        foreach ($collection as $model) {
-            $items[] = $model->getDataModel();
-        }
-
-        $searchResults->setItems($items);
+        $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
+        $searchResults->setSearchCriteria($criteria);
         return $searchResults;
     }
 
