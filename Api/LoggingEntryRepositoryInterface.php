@@ -3,14 +3,14 @@
 
 namespace FireGento\WebapiMetrics\Api;
 
-use Magento\Framework\Api\SearchCriteriaInterface;
-
 interface LoggingEntryRepositoryInterface
 {
 
     /**
      * Save LoggingEntry
+     *
      * @param \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface $loggingEntry
+     *
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -20,7 +20,9 @@ interface LoggingEntryRepositoryInterface
 
     /**
      * Retrieve LoggingEntry
+     *
      * @param string $loggingentryId
+     *
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -28,7 +30,9 @@ interface LoggingEntryRepositoryInterface
 
     /**
      * Retrieve LoggingEntry matching the specified criteria.
+     *
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
+     *
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntrySearchResultsInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -38,7 +42,9 @@ interface LoggingEntryRepositoryInterface
 
     /**
      * Delete LoggingEntry
+     *
      * @param \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface $loggingEntry
+     *
      * @return bool true on success
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -48,7 +54,9 @@ interface LoggingEntryRepositoryInterface
 
     /**
      * Delete LoggingEntry by ID
+     *
      * @param string $loggingentryId
+     *
      * @return bool true on success
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException

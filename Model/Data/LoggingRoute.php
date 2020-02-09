@@ -62,4 +62,12 @@ class LoggingRoute extends \Magento\Framework\Api\AbstractExtensibleObject imple
     {
         return $this->setData(LoggingRouteInterface::KEY_METHOD_TYPE, $methodType);
     }
+
+    /**
+     * @return array|mixed|null
+     */
+    public function getEntries()
+    {
+        return $this->_get(LoggingRouteInterface::KEY_ENTRIES);
+    }
 }

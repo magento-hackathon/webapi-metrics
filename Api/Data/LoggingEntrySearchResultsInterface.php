@@ -14,7 +14,9 @@ interface LoggingEntrySearchResultsInterface extends \Magento\Framework\Api\Sear
 
     /**
      * Set executed_at list.
+     *
      * @param \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface[] $items
+     *
      * @return $this
      */
     public function setItems(array $items);

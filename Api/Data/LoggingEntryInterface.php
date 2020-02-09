@@ -2,16 +2,20 @@
 
 namespace FireGento\WebapiMetrics\Api\Data;
 
+use Magento\Framework\Api\ExtensibleDataInterface;
+
 /**
  * Class LoggingEntryInterface
  */
-interface LoggingEntryInterface
+interface LoggingEntryInterface extends ExtensibleDataInterface
 {
-    const KEY_ENTITY_ID = 'entity_id';
-    const KEY_ROUTE_ID = 'route_id';
-    const KEY_STATUS_CODE = 'status_code';
-    const KEY_SIZE = 'size';
-    const KEY_EXECUTED_AT = 'executed_at';
+    public const KEY_ENTITY_ID   = 'entity_id';
+    public const KEY_ROUTE_ID    = 'route_id';
+    public const KEY_STATUS_CODE = 'status_code';
+    public const KEY_SIZE        = 'size';
+    public const KEY_EXECUTED_AT = 'executed_at';
+    public const KEY_ROUTE_NAME  = 'route_name';
+    public const KEY_METHOD_TYPE = 'method_type';
 
     /**
      * @return int
@@ -20,6 +24,7 @@ interface LoggingEntryInterface
 
     /**
      * @param int $entityId
+     *
      * @return int
      */
     public function setEntityId(int $entityId);
@@ -31,6 +36,7 @@ interface LoggingEntryInterface
 
     /**
      * @param $routeId
+     *
      * @return self
      */
     public function setRouteId($routeId);
@@ -42,6 +48,7 @@ interface LoggingEntryInterface
 
     /**
      * @param int $statusCode
+     *
      * @return self
      */
     public function setStatusCode(int $statusCode);
@@ -53,6 +60,7 @@ interface LoggingEntryInterface
 
     /**
      * @param int $size
+     *
      * @return self
      */
     public function setSize(int $size);
@@ -64,7 +72,32 @@ interface LoggingEntryInterface
 
     /**
      * @param string $executedAt
+     *
      * @return self
      */
     public function setExecutedAt(string $executedAt);
+
+    /**
+     * @return mixed
+     */
+    public function getRouteName();
+
+    /**
+     * @param string $route
+     *
+     * @return mixed
+     */
+    public function setRouteName(string $route);
+
+    /**
+     * @return mixed
+     */
+    public function getMethodType();
+
+    /**
+     * @param string $methodType
+     *
+     * @return mixed
+     */
+    public function setMethodType(string $methodType);
 }

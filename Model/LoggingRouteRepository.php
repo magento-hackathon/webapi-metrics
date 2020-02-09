@@ -136,7 +136,7 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
             LoggingRouteInterface::KEY_ROUTE_NAME
         );
 
-        // If no entity_id after load then we need set data changes and save it
+        //if no entity_id after load then we need set data changes and save it
         if (!$loggingRouteModel->getEntityId()) {
             $loggingRouteModel->setDataChanges(true);
         }
@@ -174,10 +174,10 @@ class LoggingRouteRepository implements LoggingRouteRepositoryInterface
     ) {
         $collection = $this->loggingRouteCollectionFactory->create();
 
-        $this->extensionAttributesJoinProcessor->process(
-            $collection,
-            LoggingRouteInterface::class
-        );
+//        $this->extensionAttributesJoinProcessor->process(
+//            $collection,
+//            LoggingRouteInterface::class
+//        );
 
         $this->collectionProcessor->process($criteria, $collection);
 
