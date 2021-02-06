@@ -3,164 +3,112 @@
 namespace FireGento\WebapiMetrics\Model\Data;
 
 use FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface;
-use Magento\Framework\Api\AbstractExtensibleObject;
+use FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface;
+use Magento\Framework\Model\AbstractExtensibleModel;
 
 /**
  * Class LoggingEntry
  */
-class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInterface
+class LoggingEntry extends AbstractExtensibleModel implements LoggingEntryInterface
 {
     /**
-     * Get entity_id
-     *
-     * @return int
-     */
-    public function getEntityId()
-    {
-        return $this->_get(LoggingEntryInterface::KEY_ENTITY_ID);
-    }
-
-    /**
-     * Set entity_id
-     *
-     * @param string $entityId
-     * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryInterface
-     */
-    public function setEntityId($entityId)
-    {
-        return $this->setData(LoggingEntryInterface::KEY_ENTITY_ID, $entityId);
-    }
-
-    /**
-     * Get route ID
-     *
-     * @return int
-     */
-    public function getRouteId()
-    {
-        return $this->_get(LoggingEntryInterface::KEY_ROUTE_ID);
-    }
-
-    /**
-     * Set route ID
-     *
-     * @param int $routeId
-     * @return self
-     */
-    public function setRouteId($routeId)
-    {
-        return $this->setData(LoggingEntryInterface::KEY_ROUTE_ID, $routeId);
-    }
-
-    /**
-     * Get executed_at
-     *
-     * @return string|null
-     */
-    public function getExecutedAt()
-    {
-        return $this->_get(LoggingEntryInterface::KEY_EXECUTED_AT);
-    }
-
-    /**
-     * Set executed_at
-     *
-     * @param string $executedAt
-     * @return self
-     */
-    public function setExecutedAt($executedAt)
-    {
-        return $this->setData(LoggingEntryInterface::KEY_EXECUTED_AT, $executedAt);
-    }
-
-    /**
-     * Get status code
-     *
-     * @return int
+     * {@inheritDoc}
      */
     public function getStatusCode(): int
     {
-        return $this->_get(LoggingEntryInterface::KEY_STATUS_CODE);
+        return $this->_getData(self::KEY_STATUS_CODE);
     }
 
     /**
-     * Set status code
-     *
-     * @param int $statusCode
-     * @return self
+     * {@inheritDoc}
      */
     public function setStatusCode(int $statusCode)
     {
-        return $this->setData(LoggingEntryInterface::KEY_STATUS_CODE, $statusCode);
+        return $this->setData(self::KEY_STATUS_CODE, $statusCode);
     }
 
     /**
-     * Get size
-     *
-     * @return int
+     * {@inheritDoc}
      */
     public function getSize(): int
     {
-        return $this->_get(LoggingEntryInterface::KEY_SIZE);
+        return $this->_getData(self::KEY_SIZE);
     }
 
     /**
-     * Set size
-     *
-     * @param int $size
-     * @return self
+     * {@inheritDoc}
      */
     public function setSize(int $size)
     {
-        return $this->setData(LoggingEntryInterface::KEY_SIZE, $size);
+        return $this->setData(self::KEY_SIZE, $size);
     }
 
     /**
-     * Get route name
-     *
-     * @return mixed
+     * {@inheritDoc}
      */
-    public function getRouteName()
+    public function setExecutionTimeMs(int $executionTimeMs)
     {
-        return $this->_get(LoggingEntryInterface::KEY_ROUTE_NAME);
+        return $this->setData(self::KEY_EXECUTION_TIME_MS, $executionTimeMs);
     }
 
     /**
-     * Set route name
-     *
-     * @param string|null $route
-     * @return mixed
+     * {@inheritDoc}
      */
-    public function setRouteName($route)
+    public function getExecutionTimeMs()
     {
-        return $this->setData(LoggingEntryInterface::KEY_ROUTE_NAME, $route);
+        return $this->_getData(self::KEY_EXECUTION_TIME_MS);
     }
 
     /**
-     * Get method type
-     *
-     * @return mixed
+     * {@inheritDoc}
      */
-    public function getMethodType()
+    public function getCreatedAt()
     {
-        return $this->_get(LoggingEntryInterface::KEY_METHOD_TYPE);
+        return $this->_getData(self::KEY_CREATED_AT);
     }
 
     /**
-     * Set method type
-     *
-     * @param string|null $methodType
-     * @return mixed
+     * {@inheritDoc}
      */
-    public function setMethodType($methodType)
+    public function setCreatedAt(string $createdAt)
     {
-        return $this->setData(LoggingEntryInterface::KEY_METHOD_TYPE, $methodType);
+        return $this->setData(self::KEY_CREATED_AT, $createdAt);
     }
 
     /**
-     * Retrieve existing extension attributes object or create a new one.
-     *
-     * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface|null
+     * {@inheritDoc}
+     */
+    public function getRoute()
+    {
+        return $this->_getData(self::KEY_ROUTE);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setRoute(string $route)
+    {
+        return $this->setData(self::KEY_ROUTE, $route);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMethod()
+    {
+        return $this->_getData(self::KEY_METHOD);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setMethod(string $method)
+    {
+        return $this->setData(self::KEY_METHOD, $method);
+    }
+
+    /**
+     * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface
      */
     public function getExtensionAttributes()
     {
@@ -168,14 +116,11 @@ class LoggingEntry extends AbstractExtensibleObject implements LoggingEntryInter
     }
 
     /**
-     * Set an extension attributes object.
-     *
      * @param \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface $extensionAttributes
-     * @return $this
+     * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface
      */
-    public function setExtensionAttributes(
-        \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface $extensionAttributes
-    ) {
+    public function setExtensionAttributes(LoggingEntryExtensionInterface $extensionAttributes)
+    {
         return $this->_setExtensionAttributes($extensionAttributes);
     }
 }

@@ -10,12 +10,12 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 interface LoggingEntryInterface extends ExtensibleDataInterface
 {
     public const KEY_ENTITY_ID = 'entity_id';
-    public const KEY_ROUTE_ID = 'route_id';
+    public const KEY_ROUTE = 'route';
     public const KEY_STATUS_CODE = 'status_code';
     public const KEY_SIZE = 'size';
-    public const KEY_EXECUTED_AT = 'executed_at';
-    public const KEY_ROUTE_NAME = 'route_name';
-    public const KEY_METHOD_TYPE = 'method_type';
+    public const KEY_CREATED_AT = 'created_at';
+    public const KEY_EXECUTION_TIME_MS = 'execution_time';
+    public const KEY_METHOD = 'method';
 
     /**
      * Get Entity ID
@@ -31,21 +31,6 @@ interface LoggingEntryInterface extends ExtensibleDataInterface
      * @return int
      */
     public function setEntityId(int $entityId);
-
-    /**
-     * Get route ID
-     *
-     * @return int
-     */
-    public function getRouteId();
-
-    /**
-     * Set route ID
-     *
-     * @param int $routeId
-     * @return self
-     */
-    public function setRouteId($routeId);
 
     /**
      * Get status code
@@ -78,54 +63,69 @@ interface LoggingEntryInterface extends ExtensibleDataInterface
     public function setSize(int $size);
 
     /**
-     * Get executed at
+     * Set execution time in milliseconds
+     *
+     * @param int $executionTimeMs
+     * @return self
+     */
+    public function setExecutionTimeMs(int $executionTimeMs);
+
+    /**
+     * Get execution time in milliseconds
+     *
+     * @return int
+     */
+    public function getExecutionTimeMs();
+
+    /**
+     * Get created at
      *
      * @return string
      */
-    public function getExecutedAt();
+    public function getCreatedAt();
 
     /**
-     * Set executed at
+     * Set created at
      *
-     * @param string $executedAt
+     * @param string $createdAt
      * @return self
      */
-    public function setExecutedAt(string $executedAt);
+    public function setCreatedAt(string $createdAt);
 
     /**
      * Get route name
      *
-     * @return mixed
+     * @return string
      */
-    public function getRouteName();
+    public function getRoute();
 
     /**
      * Set route name
      *
      * @param string $route
-     * @return mixed
+     * @return self
      */
-    public function setRouteName(string $route);
+    public function setRoute(string $route);
 
     /**
-     * Get method type
+     * Get method
      *
-     * @return mixed
+     * @return string
      */
-    public function getMethodType();
+    public function getMethod();
 
     /**
-     * Set method type
+     * Set method
      *
-     * @param string $methodType
+     * @param string $method
      * @return mixed
      */
-    public function setMethodType(string $methodType);
+    public function setMethod(string $method);
 
     /**
      * Retrieve existing extension attributes object or create a new one.
      *
-     * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface|null
+     * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface
      */
     public function getExtensionAttributes();
 
@@ -133,7 +133,7 @@ interface LoggingEntryInterface extends ExtensibleDataInterface
      * Set an extension attributes object.
      *
      * @param \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface $extensionAttributes
-     * @return $this
+     * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface
      */
     public function setExtensionAttributes(
         \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface $extensionAttributes
