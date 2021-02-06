@@ -7,7 +7,9 @@
              translate="title"
              module="FireGento_WebapiMetrics"
              sortOrder="999"
-             resource="FireGento_WebapiMetrics::items"/>
+             resource="FireGento_WebapiMetrics::items"
+             parent="Magento_Reports::report"
+        />
         <add id="FireGento_WebapiMetrics::webapi_metrics"
              title="Webapi Metrics"
              translate="title"
@@ -15,6 +17,7 @@
              sortOrder="10"
              resource="FireGento_WebapiMetrics::webapi_metrics"
              parent="FireGento_WebapiMetrics::firegento"
-             action="webapi/metrics/metrics" />
+             action="webapi/metrics/metrics"
+        />
     </menu>
 </config>
