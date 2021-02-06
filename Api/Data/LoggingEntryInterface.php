@@ -16,6 +16,7 @@ interface LoggingEntryInterface extends ExtensibleDataInterface
     public const KEY_CREATED_AT = 'created_at';
     public const KEY_EXECUTION_TIME_MS = 'execution_time';
     public const KEY_METHOD = 'method';
+    public const KEY_STORE_CODE = 'store_code';
 
     /**
      * Get Entity ID
@@ -121,6 +122,21 @@ interface LoggingEntryInterface extends ExtensibleDataInterface
      * @return mixed
      */
     public function setMethod(string $method);
+
+    /**
+     * Set the store code
+     *
+     * @param string $storeCode
+     * @return self
+     */
+    public function setStoreCode(string $storeCode);
+
+    /**
+     * Return the store code
+     *
+     * @return string
+     */
+    public function getStoreCode(): string;
 
     /**
      * Retrieve existing extension attributes object or create a new one.

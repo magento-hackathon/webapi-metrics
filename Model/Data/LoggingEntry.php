@@ -108,6 +108,22 @@ class LoggingEntry extends AbstractExtensibleModel implements LoggingEntryInterf
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function setStoreCode(string $storeCode)
+    {
+        return $this->setData(self::KEY_STORE_CODE, $storeCode);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStoreCode(): string
+    {
+        return $this->_getData(self::KEY_STORE_CODE);
+    }
+
+    /**
      * @return \FireGento\WebapiMetrics\Api\Data\LoggingEntryExtensionInterface
      */
     public function getExtensionAttributes()

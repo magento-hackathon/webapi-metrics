@@ -5,6 +5,7 @@
            comment="Table for collecting metrics data">
         <column name="entity_id" xsi:type="int" padding="10" unsigned="true"
                 nullable="false" identity="true" comment="Entity Id"/>
+        <column name="store_code" xsi:type="varchar" nullable="false" length="32" comment="Store Code"/>
         <column name="method" xsi:type="varchar" length="10" comment="HTTP method" nullable="false" />
         <column name="route" xsi:type="varchar" length="512" comment="REST route" nullable="false" />
         <column name="status_code" xsi:type="int" unsigned="true"
