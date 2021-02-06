@@ -19,4 +19,16 @@ class LoggingEntry extends AbstractDb
     {
         $this->_init('fg_webapimetrics_logging_entry', 'entity_id');
     }
+
+    /**
+     * @return array
+     */
+    public function getRequestCountStatisticByMethodAndRoute()
+    {
+        $select = $this->getConnection()->select()
+            ->from($this->getMainTable(), ['method', 'route', 'count' => new \Zend_Db_Expr('COUNT(*)')])
+            ->group(['method', 'route']);
+
+        return $this->getConnection()->fetchAll($select);
+    }
 }

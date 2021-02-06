@@ -5,6 +5,7 @@ namespace FireGento\WebapiMetrics\Block;
 
 use FireGento\WebapiMetrics\Api\LoggingEntryRepositoryInterface;
 use FireGento\WebapiMetrics\Api\LoggingRouteRepositoryInterface;
+use FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry;
 use Magento\Backend\Block\Dashboard\AbstractDashboard;
 use Magento\Backend\Block\Template\Context;
 use Magento\Backend\Helper\Dashboard\Data;
@@ -23,74 +24,53 @@ class Routes extends AbstractDashboard
      * Api URL
      */
     private const API_URL = 'https://image-charts.com/chart';
+
     /**
      * @var string
      */
     protected $_template = 'FireGento_WebapiMetrics::dashboard/metrics.phtml';
 
     /**
-     * Adminhtml dashboard data
-     *
-     * @var Data
+     * @var \FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry
      */
-    protected $_dashboardData = null;
+    private LoggingEntry $loggingEntryResource;
 
-    /** @var LoggingEntryRepositoryInterface */
-    private $loggingEntryRepository;
-
-    /** @var LoggingRouteRepositoryInterface */
-    private $loggingRouteRepository;
-
-    /** @var SearchCriteriaBuilder */
-    private $searchCriteriaBuilder;
-
-    /** @var FilterBuilder */
-    private $filterBuilder;
-
-    /** @var FilterGroupBuilder */
-    private $filterGroupBuilder;
+    /**
+     * @var array
+     */
+    private $statistics;
 
     /**
      * Routes constructor.
      *
      * @param Context $context
-     * @param CollectionFactory $collectionFactory
-     * @param LoggingEntryRepositoryInterface $loggingEntryRepository
-     * @param LoggingRouteRepositoryInterface $loggingRouteRepository
-     * @param SearchCriteriaBuilder $searchCriteriaBuilder
-     * @param FilterGroupBuilder $filterGroupBuilder
-     * @param FilterBuilder $filterBuilder
+     * @param \Magento\Reports\Model\ResourceModel\Order\CollectionFactory $collectionFactory
+     * @param \FireGento\WebapiMetrics\Model\ResourceModel\LoggingEntry $loggingEntryResource
      * @param array $data
      */
     public function __construct(
         Context $context,
         CollectionFactory $collectionFactory,
-        LoggingEntryRepositoryInterface $loggingEntryRepository,
-        LoggingRouteRepositoryInterface $loggingRouteRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        FilterGroupBuilder $filterGroupBuilder,
-        FilterBuilder $filterBuilder,
+        LoggingEntry $loggingEntryResource,
         array $data = []
     ) {
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->loggingEntryRepository = $loggingEntryRepository;
-        $this->loggingRouteRepository = $loggingRouteRepository;
-        $this->filterGroupBuilder = $filterGroupBuilder;
-        $this->filterBuilder = $filterBuilder;
         parent::__construct($context, $collectionFactory, $data);
+
+        $this->loggingEntryResource = $loggingEntryResource;
     }
 
-    /**
-     * Get count
-     *
-     * @return bool|int
-     * @throws LocalizedException
-     */
-    public function getCount()
+    public function getStatistics()
     {
-        $routes = $this->loggingRouteRepository->getList($this->searchCriteriaBuilder->create())->getItems();
+        if ($this->statistics === null) {
+            $this->statistics = $this->loggingEntryResource->getRequestCountStatisticByMethodAndRoute();
+        }
 
-        return (bool)count($routes) > 0;
+        return $this->statistics;
+    }
+
+    public function hasStatistics(): bool
+    {
+        return count($this->getStatistics()) > 0;
     }
 
     /**
@@ -105,35 +85,14 @@ class Routes extends AbstractDashboard
      */
     public function getChartUrl()
     {
-        $routes = $this->loggingRouteRepository->getList($this->searchCriteriaBuilder->create())->getItems();
-        $results = [];
-        foreach ($routes as $route) {
-            $filter = $this->filterBuilder
-                ->setField('route_id')
-                ->setConditionType('eq')
-                ->setValue($route->getEntityId())
-                ->create();
-            $filterGroup = $this->filterGroupBuilder
-                ->addFilter($filter)
-                ->create();
-            $searchCriteria = $this->searchCriteriaBuilder
-                ->setFilterGroups([$filterGroup])
-                ->create();
-            $entries = $this->loggingEntryRepository->getList($searchCriteria);
-            $results[$route->getEntityId()] = [
-                'route' => $route,
-                'entries' => $entries,
-                'count' => $entries->getTotalCount()
-            ];
-        }
-
         $chd = [];
         $chdl = [];
 
+        $results = $this->getStatistics();
+
         foreach ($results as $result) {
             $chd[] = $result['count'];
-            $tmp = $result['route'];
-            $chdl[] = $tmp->getMethodType() . ': ' . $tmp->getRouteName();
+            $chdl[] = $result['method'] . ': ' . $result['route'];
         }
 
         $params = [
@@ -150,13 +109,12 @@ class Routes extends AbstractDashboard
             'chxs' => '0,000000,0,0,_',
             'chxt' => 'y',
             'chbh' => 'a',
-//            'chf' => 'b0,lg,90,EA469EFF,1,03A9F47C,0.4',
         ];
 
         $p = [];
         foreach ($params as $name => $value) {
             $p[] = $name . '=' . urlencode($value);
         }
-        return (string)self::API_URL . '?' . implode('&', $p);
+        return self::API_URL . '?' . implode('&', $p);
     }
 }
